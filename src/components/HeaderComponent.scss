@@ -1,0 +1,48 @@
+.HeaderContainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.Header{
+  width:100%;
+  height: 100px;
+  background-color: lightblue;
+}
+
+.logo{
+  width: 35px;
+}
+
+.header-text{
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.signupbtn {
+  background-color: royalblue;
+  color: white;
+  padding: 2px;
+  margin: 2px 2px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+.searchbtn{
+  background-color: royalblue;
+  color: white;
+  padding: 2px;
+  margin: 2px 2px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+.search-bar{
+
+}
