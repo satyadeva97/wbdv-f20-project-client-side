@@ -1,24 +1,36 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import HomeContainer from "./containers/HomeContainer";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import SignInComponent from "./components/SignInComponent";
+import SignUpComponent from "./components/SignUpComponent";
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ProfileComponent from "./components/ProfileComponent";
+import FooterComponent from "./components/FooterComponent";
+import PrivacyPolicyComponent from "./components/PrivacyPolicyComponent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <Router>
+              <Route path="/" exact={true} component={HomeContainer} />
+              <Route path="/home" exact={true} component={HomeContainer} />
+
+              <Route path="/signIn" exact={true} component={SignInComponent} />
+              <Route path="/signUp" exact={true} component={SignUpComponent} />
+              <Route path="/profile" exact={true} component={ProfileComponent} />
+              <Route path="/privacy" exact={true} component={PrivacyPolicyComponent} />
+              <Route path="/search/:text" exact={true} render = {(props) => {
+                  return(
+                      <HomeContainer text={props.match.params.text} {...props}/>
+                  )
+              }
+              }/>
+          </Router>
+          <FooterComponent/>
+      </div>
+
   );
 }
 
