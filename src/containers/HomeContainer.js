@@ -1,57 +1,62 @@
-import React from 'react';
+import React, { Component } from "react";
 import HeaderComponent from "../components/HeaderComponent";
-import {getAllJobs} from "../services/JobService";
-import JobComponent from "../components/jobComponent";
-import { trackPromise } from 'react-promise-tracker';
+import { getAllJobs } from "../services/JobService";
+import JobsComponent from "../components/JobsComponent";
+import { trackPromise } from "react-promise-tracker";
 
-class HomeContainer extends React.Component{
-
-    componentDidMount() {
-        if (this.props.text) {
-            trackPromise(
-            this.getJobs(this.props.text))
-        }
+class HomeContainer extends Component {
+  componentDidMount() {
+    if (this.props.search) {
+      trackPromise(this.getJobs(this.props.search));
     }
+  }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.text !== this.props.text) {
-            trackPromise(
-            this.getJobs(this.props.text))
-        }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (
+      prevProps.search.keyword !== this.props.search.keyword ||
+      prevProps.search.location !== this.props.search.location
+    ) {
+      trackPromise(this.getJobs(this.props.search));
     }
+  }
 
-    state = {
-        jobs: [],
-    }
+  state = {
+    jobs: [],
+  };
 
+  getJobs = async (search) => {
+    const jobs = await getAllJobs(search.keyword, search.location);
+    console.log(jobs);
+    this.setState({ jobs: jobs });
+  };
 
-    getJobs = async (input) => {
-        const jobs = await getAllJobs(input)
-        console.log(jobs);
-        this.setState({jobs: jobs});
-    }
+  onJobSearch = ({ keyword = "", location = "" }) => {
+    this.props.history.push(
+      `/search/keyword/${keyword ? keyword : "%20"}/location/${
+        location ? location : "%20"
+      }/`
+    );
+  };
 
-    //
-    // getJobs = (input) => {
-    //     const jobs = getAllJobs(input).then(this.setState({jobs: jobs});)
-    // }
-
-    render() {
-        return(
-            <div className="container">
-                <HeaderComponent
-                    // onSearch = {(input) => this.getJobs(input)}
-                    onSearch = {(input) => this.props.history.push("/search/"+input)}
-                    onSearchByLoc = {(loc) => this.props.history.push("/search/"+loc)}
-                />
-                <div className="text-center">
-                    {this.props.text && `showing results for ${this.props.text}`}
-                </div>
-                <JobComponent jobs={this.state.jobs}/>
-
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="container">
+        <HeaderComponent onSearch={this.onJobSearch} />
+        <div className="text-center">
+          {(this.props.search.keyword || this.props.search.keyword) &&
+            `Showing results for Keyword:${this.props.search.keyword} Location:${this.props.search.location}`}
+        </div>
+        <JobsComponent jobs={this.state.jobs} />
+      </div>
+    );
+  }
 }
+
+HomeContainer.defaultProps = {
+  search: {
+    keyword: "",
+    location: "",
+  },
+};
 
 export default HomeContainer;
