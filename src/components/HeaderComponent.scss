@@ -1,6 +1,12 @@
 .header {
   width: 100%;
   background-color: #e3f2fd;
+  .header-brand {
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 .logo {

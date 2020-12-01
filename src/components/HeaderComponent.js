@@ -10,6 +10,7 @@ class HeaderComponent extends React.Component {
   state = {
     keyword: "",
     location: "",
+    showToggle: false,
   };
 
   onSearch = () => {
@@ -24,7 +25,15 @@ class HeaderComponent extends React.Component {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light header">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand header-brand" href="/">
+            <img
+              src="/logo512.png"
+              width="10"
+              height="10"
+              className="d-inline-block align-top"
+              alt=""
+              loading="lazy"
+            />
             Job Panda
           </a>
           <button
@@ -35,24 +44,34 @@ class HeaderComponent extends React.Component {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            onClick={() => {
+              this.setState({ showToggle: !this.state.showToggle });
+            }}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div
+            className={`collapse navbar-collapse ${
+              this.state.showToggle ? "show" : ""
+            }`}
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="/">
-                  Home
+                  Jobs
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link">Profile</a>
+                <a className="nav-link" href="/">
+                  Profile
+                </a>
               </li>
               <li className="nav-item">
                 <a
                   className="nav-link disabled"
-                  href="#"
+                  href="/"
                   tabIndex="-1"
                   aria-disabled="true"
                 >
