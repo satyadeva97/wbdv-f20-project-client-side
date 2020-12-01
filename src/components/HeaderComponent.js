@@ -34,7 +34,7 @@ class HeaderComponent extends React.Component {
               alt="logo"
               loading="lazy"
             />
-            Job Panda
+            Job Man
           </a>
           <button
             className="navbar-toggler"
