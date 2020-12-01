@@ -83,19 +83,12 @@ img {
   flex-direction: column;
 }
 
-a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-}
-
 .company-logo {
   height: 100px;
 }
 
 .job-designation {
-  padding-top: 25px;
+  padding-top: 5px;
   font: bold 16px Arial, sans-serif;
   color: black;
 }
