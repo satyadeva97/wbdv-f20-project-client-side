@@ -7,7 +7,7 @@ class JobDetailsComponent extends React.Component {
       <div className="card job-description">
         <div className="row card-header job-header align-center">
           <div className="col">
-            <img src={job.company_logo} alt="" />
+            <img src={job.company_logo || "/altImage.png"} alt={job.company} />
 
             <h5>
               <a href={job.company_url} target="_blank" rel="noreferrer">

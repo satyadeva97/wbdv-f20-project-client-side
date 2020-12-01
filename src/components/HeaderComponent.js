@@ -31,7 +31,7 @@ class HeaderComponent extends React.Component {
               width="10"
               height="10"
               className="d-inline-block align-top"
-              alt=""
+              alt="logo"
               loading="lazy"
             />
             Job Panda

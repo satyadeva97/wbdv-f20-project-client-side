@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import SignInComponent from "./components/SignInComponent";
 import SignUpComponent from "./components/SignUpComponent";
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import ProfileComponent from "./components/ProfileComponent";
 import FooterComponent from "./components/FooterComponent";
 import PrivacyPolicyComponent from "./components/PrivacyPolicyComponent";
