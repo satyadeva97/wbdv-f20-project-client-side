@@ -8,7 +8,7 @@ class JobsComponent extends React.Component {
         {this.props.jobs.length === 0 && <h5>No jobs to show</h5>}
 
         {this.props.jobs && (
-          <ul className="flex-container wrap">
+          <ul className="row flex-container wrap ">
             {this.props.jobs.map((job) => {
               return <JobsCardComponent key={job.id} job={job} />;
             })}

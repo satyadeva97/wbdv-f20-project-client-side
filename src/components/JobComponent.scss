@@ -1,4 +1,4 @@
-.cardStyle{
+.cardStyle {
   //float: left;
   //margin-right: 15px;
   height: 50px;
@@ -9,13 +9,11 @@
   flex-direction: row;
 }
 
-
-
 .flex-container {
   padding: 0;
   margin: 0;
   list-style: none;
-  border: 1px solid silver;
+  border: 0px solid silver;
   -ms-box-orient: horizontal;
   display: -webkit-box;
   display: -moz-box;
@@ -25,12 +23,12 @@
   display: flex;
 }
 
-.nowrap  {
+.nowrap {
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
 }
 
-.wrap    {
+.wrap {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
@@ -40,7 +38,7 @@
   border-radius: 10px;
 }
 
-.wrap-reverse         {
+.wrap-reverse {
   -webkit-flex-wrap: wrap-reverse;
   flex-wrap: wrap-reverse;
 }
@@ -51,8 +49,9 @@
 .flex-item {
   background: tomato;
   padding: 5px;
-  width: 348px;
-  height: 350px;
+  width: 250px;
+  height: auto;
+  max-height: 350px;
   margin: 10px;
 
   line-height: 100px;
@@ -62,16 +61,14 @@
 
 img {
   display: block;
-  max-width:230px;
-  max-height:95px;
+  max-width: 100%;
+  max-height: 95px;
   width: auto;
   height: auto;
 }
 
 .flex-col-container {
   padding: 20px 10px 20px 10px;
-  width: 320px;
-  height: 320px;
 
   text-align: left;
   line-height: 30px;
@@ -86,7 +83,10 @@ img {
   flex-direction: column;
 }
 
-a, a:hover, a:focus, a:active {
+a,
+a:hover,
+a:focus,
+a:active {
   text-decoration: none;
 }
 
@@ -103,4 +103,12 @@ a, a:hover, a:focus, a:active {
 .company-name {
   font: 12px/30px Verdana;
   color: gray;
+}
+
+.job-description {
+  margin-top: 20px;
+  .job-header {
+    width: 100%;
+    margin: 0;
+  }
 }
