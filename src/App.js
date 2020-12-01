@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.scss";
 import HomeContainer from "./containers/HomeContainer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -37,6 +36,15 @@ function App() {
                 }}
                 {...props}
               />
+            );
+          }}
+        />
+        <Route
+          path="/job/:jobId"
+          exact={true}
+          render={(props) => {
+            return (
+              <HomeContainer jobId={props.match.params.jobId} {...props} />
             );
           }}
         />
