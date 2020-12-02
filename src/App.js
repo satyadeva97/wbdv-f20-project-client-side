@@ -1,12 +1,12 @@
 import "./App.scss";
 import HomeContainer from "./containers/HomeContainer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import SignInComponent from "./components/SignInComponent";
-import SignUpComponent from "./components/SignUpComponent";
+import SignInComponent from "./components/user/SignInComponent";
+import SignUpComponent from "./components/user/SignUpComponent";
 import React from "react";
-import ProfileComponent from "./components/ProfileComponent";
-import FooterComponent from "./components/FooterComponent";
-import PrivacyPolicyComponent from "./components/PrivacyPolicyComponent";
+import ProfileComponent from "./components/user/ProfileComponent";
+import FooterComponent from "./components/core/FooterComponent";
+import PrivacyPolicyComponent from "./components/core/PrivacyPolicyComponent";
 
 function App() {
   return (

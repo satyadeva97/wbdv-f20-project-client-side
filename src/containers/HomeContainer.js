@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import HeaderComponent from "../components/HeaderComponent";
+import HeaderComponent from "../components/core/HeaderComponent";
 import { getAllJobs, getJobDetailsById } from "../services/JobService";
-import JobsComponent from "../components/JobsComponent";
+import JobsComponent from "../components/job/JobsComponent";
 import { trackPromise } from "react-promise-tracker";
-import JobDetailsComponent from "../components/JobDetailsComponent";
+import JobDetailsComponent from "../components/job/JobDetailsComponent";
 
 class HomeContainer extends Component {
   componentDidMount() {
