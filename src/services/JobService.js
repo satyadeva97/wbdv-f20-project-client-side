@@ -23,3 +23,7 @@ export const getJobDetailsById = (id) => {
     }
   );
 };
+
+export const postJob = (job) => {
+  return true;
+};
