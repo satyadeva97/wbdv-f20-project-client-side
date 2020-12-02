@@ -64,7 +64,7 @@ class HeaderComponent extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/recruiter">
                   Profile
                 </a>
               </li>
