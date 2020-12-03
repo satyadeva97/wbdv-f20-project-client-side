@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/wbdv-f20-project-client-side.iml" filepath="$PROJECT_DIR$/.idea/wbdv-f20-project-client-side.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/job-man.iml" filepath="$PROJECT_DIR$/.idea/job-man.iml" />
     </modules>
   </component>
 </project>
