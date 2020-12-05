@@ -26,7 +26,7 @@ class JobsPostComponent extends React.Component {
 
         <form onSubmit={this.postJob}>
           <div className="form-group row">
-            <label for="title" className="col-sm-2 col-form-label">
+            <label htmlFor="title" className="col-sm-2 col-form-label">
               Title
             </label>
             <div className="col-sm-6">
@@ -40,7 +40,7 @@ class JobsPostComponent extends React.Component {
           </div>
 
           <div className="form-group row">
-            <label for="description" className="col-sm-2 col-form-label">
+            <label htmlFor="description" className="col-sm-2 col-form-label">
               Description
             </label>
             <div className="col-sm-6">
@@ -55,7 +55,7 @@ class JobsPostComponent extends React.Component {
           </div>
 
           <div className="form-group row">
-            <label for="location" className="col-sm-2 col-form-label">
+            <label htmlFor="location" className="col-sm-2 col-form-label">
               Location
             </label>
             <div className="col-sm-6">
@@ -69,7 +69,7 @@ class JobsPostComponent extends React.Component {
           </div>
 
           <div className="form-group row">
-            <label for="type" className="col-sm-2 col-form-label">
+            <label htmlFor="type" className="col-sm-2 col-form-label">
               Type
             </label>
             <div className="col-sm-6">
