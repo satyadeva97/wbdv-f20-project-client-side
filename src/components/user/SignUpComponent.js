@@ -1,7 +1,5 @@
 import React from "react";
 
-const passwordRegexp =
-  "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,12}$";
 class SignUpComponent extends React.Component {
   state = {
     email: "",
@@ -108,10 +106,10 @@ class SignUpComponent extends React.Component {
                 id="password"
                 placeholder="123QWe#$%"
                 type="password"
-                pattern={passwordRegexp}
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
               />
               <div className="invalid-feedback">
-                Passwords should contain Minimum 8 and maximum 12 characters, at
+                Passwords should contain Minimum 8 and maximum 16 characters, at
                 least one uppercase letter, one lowercase letter, one number and
                 one special character
               </div>
