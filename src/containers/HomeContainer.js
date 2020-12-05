@@ -56,6 +56,7 @@ class HomeContainer extends Component {
               <JobsComponent
                 jobs={this.state.jobs}
                 search={this.props.search}
+                history={this.props.history}
               />
             </div>
           </>
