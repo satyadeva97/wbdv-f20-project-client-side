@@ -39,10 +39,18 @@ class HomeContainer extends Component {
     this.setState({ selectedJob: job });
   };
 
+  onJobSearch = ({ keyword = "", location = "" }) => {
+    this.props.history.push(
+      `/search/keyword/${keyword ? keyword : "%20"}/location/${
+        location ? location : "%20"
+      }/`
+    );
+  };
+
   render() {
     return (
       <div className="container">
-        <HeaderComponent />
+        <HeaderComponent onSearch={this.onJobSearch} />
         {this.props.jobId ? (
           <>
             <JobDetailsComponent
@@ -53,11 +61,11 @@ class HomeContainer extends Component {
         ) : (
           <>
             <div className="text-center">
-              <JobsComponent
-                jobs={this.state.jobs}
-                search={this.props.search}
-                history={this.props.history}
-              />
+              {(this.props.search.keyword || this.props.search.keyword) &&
+                `Showing results for Keyword:${this.props.search.keyword} Location:${this.props.search.location}`}
+            </div>
+            <div className="text-center">
+              <JobsComponent jobs={this.state.jobs} />
             </div>
           </>
         )}
