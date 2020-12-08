@@ -1,10 +1,5 @@
 import React from "react";
 import "./HeaderComponent.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBriefcase,
-  faGlobeAmericas,
-} from "@fortawesome/free-solid-svg-icons";
 
 class HeaderComponent extends React.Component {
   state = {
@@ -58,23 +53,13 @@ class HeaderComponent extends React.Component {
                   Profile
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled"
-                  href="/"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  Upload Resume
-                </a>
-              </li>
             </ul>
           </div>
           <div className="nav justify-content-end">
             <a className="bg-secondary text-white" href="/signIn">
               <button className="btn btn-secondary ">Sign-In</button>
             </a>
-            <a className="bg-primary text-white ml-2" href="/signIn">
+            <a className="bg-primary text-white ml-2" href="/signUp">
               <button className="btn btn-primary">Sign-Up</button>
             </a>
           </div>
