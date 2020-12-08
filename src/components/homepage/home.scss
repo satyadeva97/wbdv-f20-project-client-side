@@ -1,0 +1,9 @@
+.border-li {
+  flex-wrap: nowrap;
+  padding: 0 20px;
+  li {
+    background: white;
+    border: 2px solid silver;
+    border-radius: 10px;
+  }
+}

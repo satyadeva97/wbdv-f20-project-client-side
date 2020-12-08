@@ -61,6 +61,7 @@ class SignUpComponent extends React.Component {
                 placeholder="user@email.com"
                 type="email"
               />
+              <div className="invalid-feedback">Enter a Valid Email</div>
             </div>
           </div>
           <div className="form-group row">
@@ -225,7 +226,7 @@ class SignUpComponent extends React.Component {
                 </div>
                 <div className="col">
                   <a className="float-right" href="/">
-                    Cancel
+                    Home
                   </a>
                 </div>
               </div>

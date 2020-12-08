@@ -32,7 +32,8 @@
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.wrap li {
+.wrap li,
+.nowrap li {
   background: white;
   border: 2px solid silver;
   border-radius: 10px;
@@ -47,7 +48,6 @@
 }
 
 .flex-item {
-  background: tomato;
   padding: 5px;
   width: 250px;
   height: auto;
@@ -127,4 +127,42 @@ img {
 .job-search {
   justify-content: center;
   padding: 10px;
+}
+
+.carousel {
+  width: 100%;
+  .carousel-content {
+    display: flex;
+    .slider {
+      width: 100%;
+      cursor: grab;
+    }
+    .transparent-button {
+      width: 40px;
+      background-color: #daf1ec11;
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      z-index: 2;
+
+      &-next {
+        &:hover {
+          transform: translateX(-10%) scaleX(1.2);
+        }
+      }
+      &-back {
+        &:hover {
+          transform: translateX(10%) scaleX(1.2);
+        }
+      }
+      &-play {
+        position: absolute;
+        align-self: center;
+        justify-self: center;
+        width: 100%;
+        bottom: 0px;
+      }
+    }
+  }
 }

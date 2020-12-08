@@ -3,26 +3,25 @@ import HomeContainer from "./containers/HomeContainer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInComponent from "./components/user/SignInComponent";
 import SignUpComponent from "./components/user/SignUpComponent";
-import ProfileComponent from "./components/user/ProfileComponent";
 import FooterComponent from "./components/core/FooterComponent";
 import PrivacyPolicyComponent from "./components/core/PrivacyPolicyComponent";
 import PrivateRoute from "./PrivateRoute";
-import WarningComponent from "./components/Warning";
-import NoMatchComponent from "./components/NoMatch";
+import WarningComponent from "./components/generic/Warning";
+import NoMatchComponent from "./components/generic/NoMatch";
 import "./App.scss";
 import RecruiterContainer from "./containers/RecruiterContainer";
+import ProfileContainer from "./containers/ProfileContainer";
 
 function App() {
   return (
     <div>
       <Router>
         <Switch>
+          {/* Every One can access these */}
           <Route path="/" exact={true} component={HomeContainer} />
           <Route path="/home" exact={true} component={HomeContainer} />
-
           <Route path="/signIn" exact={true} component={SignInComponent} />
           <Route path="/signUp" exact={true} component={SignUpComponent} />
-          <Route path="/profile" exact={true} component={ProfileComponent} />
           <Route
             path="/privacy"
             exact={true}
@@ -52,6 +51,28 @@ function App() {
               );
             }}
           />
+
+          {/* Only Job Seeker can access these routes  */}
+          <PrivateRoute
+            condition={true}
+            path="/editProfile"
+            component={<ProfileContainer editProfile />}
+            redirectComponent={
+              <WarningComponent message="Only signed in user can edit profile. Please login to view this Page" />
+            }
+            message="Only signed in user can edit profile. Please login to view this Page"
+          />
+          <PrivateRoute
+            condition={true}
+            path="/profile"
+            component={<ProfileContainer />}
+            redirectComponent={
+              <WarningComponent message="Only signed in user can view the profile. Please login to view this Page" />
+            }
+            message="Only signed in user can view the profile. Please login to view this Page"
+          />
+
+          {/* Only Recruiter can access these routes */}
           <PrivateRoute
             condition={true}
             path="/postJob"
@@ -62,15 +83,14 @@ function App() {
             message="Only recruiter can post the jobs. Please login as recruiter to view this Page"
           />
           <PrivateRoute
-            condition={false}
+            condition={true}
             path="/recruiter"
             component={<RecruiterContainer />}
             redirectComponent={
-              <WarningComponent message="Only recruiter can post the jobs. Please login as recruiter to view this Page" />
+              <WarningComponent message="Only Recruiter can view this page. Please login as recruiter to view this Page" />
             }
-            message="Only recruiter can post the jobs. Please login as recruiter to view this Page"
+            message="Only Recruiter can view this page. Please login as recruiter to view this Page"
           />
-
           <Route component={NoMatchComponent} />
         </Switch>
       </Router>
