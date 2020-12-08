@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import HeaderComponent from "../components/core/HeaderComponent";
 import { getAllJobs, getJobDetailsById } from "../services/JobService";
 import JobsComponent from "../components/job/JobsComponent";
-import { trackPromise } from "react-promise-tracker";
 import JobDetailsComponent from "../components/job/JobDetailsComponent";
 
 class HomeContainer extends Component {
   componentDidMount() {
     if (this.props.jobId) {
-      trackPromise(this.getJobById(this.props.jobId));
+      this.getJobById(this.props.jobId);
     } else {
-      trackPromise(this.getJobs(this.props.search));
+      this.getJobs(this.props.search);
     }
   }
 
@@ -41,7 +40,7 @@ class HomeContainer extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <HeaderComponent />
         {this.props.jobId ? (
           <>
