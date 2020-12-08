@@ -1,6 +1,6 @@
 import React from "react";
 
-class ProfileComponent extends React.Component {
+class EditProfileComponent extends React.Component {
   render() {
     return (
       <div className="container">
@@ -98,4 +98,4 @@ class ProfileComponent extends React.Component {
   }
 }
 
-export default ProfileComponent;
+export default EditProfileComponent;
