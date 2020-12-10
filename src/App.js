@@ -51,6 +51,18 @@ function App() {
               );
             }}
           />
+          <Route
+            path="/job/featured/:jobId"
+            exact={true}
+            render={(props) => {
+              return (
+                <HomeContainer
+                  featuredJobId={props.match.params.jobId}
+                  {...props}
+                />
+              );
+            }}
+          />
 
           {/* Only Job Seeker can access these routes  */}
           <PrivateRoute
