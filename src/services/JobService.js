@@ -1,6 +1,6 @@
 import { trackPromise } from "react-promise-tracker";
-
-const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+import { apiUrl, proxyUrl } from "./constants";
+import { formatFeaturedJob } from "../helpers/helper";
 
 export const getAllJobs = (keyword, location) => {
   return trackPromise(
@@ -29,6 +29,36 @@ export const getJobDetailsById = (id) => {
         return response.json();
       }
     )
+  );
+};
+
+export const getAllFeaturedJobs = () => {
+  return trackPromise(
+    fetch(`${apiUrl}jobs`).then((response) => {
+      return response
+        .json()
+        .then((jobs) => jobs.map((x) => formatFeaturedJob(x)));
+    })
+  );
+};
+
+export const getFeaturedJobs = (keyword, location) => {
+  return trackPromise(
+    fetch(`${apiUrl}jobs/keyword/${keyword}/location/${location}`).then(
+      (response) => {
+        return response
+          .json()
+          .then((jobs) => jobs.map((x) => formatFeaturedJob(x)));
+      }
+    )
+  );
+};
+
+export const getFeaturedJobDetails = (id) => {
+  return trackPromise(
+    fetch(`${apiUrl}/jobs/${id}`).then((response) => {
+      return response.json().then((job) => formatFeaturedJob(job));
+    })
   );
 };
 
