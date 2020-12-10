@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import HeaderComponent from "../components/core/HeaderComponent";
-import { getAllJobs, getJobDetailsById } from "../services/JobService";
+import {
+  getAllJobs,
+  getFeaturedJobs,
+  getAllFeaturedJobs,
+  getJobDetailsById,
+  getFeaturedJobDetails,
+} from "../services/JobService";
 import JobsComponent from "../components/job/JobsComponent";
 import JobDetailsComponent from "../components/job/JobDetailsComponent";
 
@@ -8,6 +14,8 @@ class HomeContainer extends Component {
   componentDidMount() {
     if (this.props.jobId) {
       this.getJobById(this.props.jobId);
+    } else if (this.props.featuredJobId) {
+      this.getFeaturedJobById(this.props.featuredJobId);
     } else {
       this.getJobs(this.props.search);
     }
@@ -25,12 +33,15 @@ class HomeContainer extends Component {
   state = {
     jobs: [],
     selectedJob: {},
+    featuredJobs: [],
   };
 
   getJobs = async (search) => {
     const jobs = await getAllJobs(search.keyword, search.location);
-    console.log(jobs);
-    this.setState({ jobs: jobs });
+    const featuredJobs = await (search.keyword || search.location
+      ? getFeaturedJobs(search.keyword, search.location)
+      : getAllFeaturedJobs());
+    this.setState({ jobs: jobs, featuredJobs: featuredJobs });
   };
 
   getJobById = async (id) => {
@@ -38,14 +49,19 @@ class HomeContainer extends Component {
     this.setState({ selectedJob: job });
   };
 
+  getFeaturedJobById = async (id) => {
+    const job = await getFeaturedJobDetails(id);
+    this.setState({ selectedJob: job });
+  };
+
   render() {
     return (
       <div className="container-fluid">
         <HeaderComponent />
-        {this.props.jobId ? (
+        {this.props.jobId || this.props.featuredJobId ? (
           <>
             <JobDetailsComponent
-              jobId={this.props.jobId}
+              jobId={this.props.jobId || this.props.featuredJobId}
               job={this.state.selectedJob}
             />
           </>
@@ -54,6 +70,7 @@ class HomeContainer extends Component {
             <div className="text-center">
               <JobsComponent
                 jobs={this.state.jobs}
+                featuredJobs={this.state.featuredJobs}
                 search={this.props.search}
                 history={this.props.history}
               />
@@ -71,6 +88,7 @@ HomeContainer.defaultProps = {
     location: "",
   },
   jobId: "",
+  featuredJobId: "",
 };
 
 export default HomeContainer;

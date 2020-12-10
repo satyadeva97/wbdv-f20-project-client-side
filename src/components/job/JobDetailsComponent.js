@@ -23,9 +23,9 @@ class JobDetailsComponent extends React.Component {
               </a>
               ({job.type})
             </h5>
-            {job.postedBy && (
+            {job.recruiter && (
               <p>
-                Posted By <Link>{job.postedBy.name}</Link>
+                Posted By <Link>{job.recruiter.firstName}</Link>
               </p>
             )}
           </div>

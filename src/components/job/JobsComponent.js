@@ -28,9 +28,26 @@ class JobsComponent extends React.Component {
             })}
           </ul>
         )}
+        <div className="container">
+          {this.props.featuredJobs.length > 0 && (
+            <>
+              <h5>Featured Jobs</h5>
+              <ul className="row flex-container wrap no-gutters">
+                {this.props.featuredJobs.map((job) => {
+                  return <JobsCardComponent key={job.id} job={job} />;
+                })}
+              </ul>
+            </>
+          )}
+        </div>
       </div>
     );
   }
 }
+
+JobsComponent.defaultProps = {
+  jobs: [],
+  featuredJobs: [],
+};
 
 export default JobsComponent;
