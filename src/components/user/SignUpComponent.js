@@ -1,13 +1,16 @@
 import React from "react";
+import { setUserData } from "../../helpers/helper";
+import { registerUser } from "../../services/UserService";
 
 class SignUpComponent extends React.Component {
   state = {
     email: "",
-    userName: "",
+    username: "",
     password: "",
     verifyPassword: "",
     role: 0,
     company: "",
+    aboutMe: "",
 
     agree: false,
 
@@ -20,7 +23,7 @@ class SignUpComponent extends React.Component {
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
@@ -30,8 +33,24 @@ class SignUpComponent extends React.Component {
       document
         .getElementById("verifyPassword")
         .setCustomValidity("pwd Mismatch");
-    } else {
-      // api
+    } else if (event.target.checkValidity()) {
+      let body = {
+        ...this.state,
+        type: this.state.role ? "recruiter" : "jobseeker",
+      };
+      delete body.submitted;
+      delete body.verifyPassword;
+      delete body.role;
+      delete body.agree;
+
+      if (!this.state.role) {
+        delete body.company;
+      }
+
+      const user = await registerUser(body);
+      // setUserData(user);
+      setUserData({ username: "TZ", id: "2", role: "jobseeker" });
+      this.props.history.push("/profile");
     }
   };
 
@@ -65,7 +84,7 @@ class SignUpComponent extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label" htmlFor="userName">
+            <label className="col-sm-2 col-form-label" htmlFor="username">
               Username
             </label>
             <div className="col-sm-10">
@@ -73,7 +92,7 @@ class SignUpComponent extends React.Component {
                 required
                 onChange={this.updateField}
                 className="form-control wbdv-field wbdv-username"
-                id="userName"
+                id="username"
                 placeholder="Homosapien"
                 type="text"
                 pattern="^(\w|\d)+.*$"
@@ -138,6 +157,20 @@ class SignUpComponent extends React.Component {
               <div className="invalid-feedback">
                 Entered passwords do not Match
               </div>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label" htmlFor="aboutMe">
+              About Me
+            </label>
+            <div className="col-sm-10">
+              <textarea
+                rows="3"
+                onChange={this.updateField}
+                className="form-control wbdv-field"
+                id="aboutMe"
+                placeholder="Something to about you like: Iam a Lion Tamer working in Antarctica."
+              />
             </div>
           </div>
           <div className="form-group row">
