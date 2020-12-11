@@ -7,10 +7,13 @@ class ProfileHome extends React.Component {
     return (
       <div>
         <div>
-          <h5>Applied Jobs ({this.props.jobs.length}):</h5>
-          {this.props.jobs.length && (
+          <h5>Applied Jobs ({this.props.appliedJobs.length})</h5>
+          {this.props.appliedJobs.length && (
             <ul className="border-li">
-              <JobCarouselComponent slides={this.props.jobs} />
+              <JobCarouselComponent
+                slides={this.props.appliedJobs}
+                autoPlay={false}
+              />
             </ul>
           )}
         </div>
@@ -24,9 +27,12 @@ class ProfileHome extends React.Component {
         </div>
         <div>
           <h5>Recent Jobs:</h5>
-          {this.props.jobs.length && (
+          {this.props.featuredJobs.length && (
             <ul className="border-li">
-              <JobCarouselComponent slides={this.props.jobs} />
+              <JobCarouselComponent
+                slides={this.props.featuredJobs}
+                autoPlay={false}
+              />
             </ul>
           )}
         </div>

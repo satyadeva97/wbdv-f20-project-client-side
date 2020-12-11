@@ -2,7 +2,13 @@ import React from "react";
 import HeaderComponent from "../components/core/HeaderComponent";
 import ProfileHome from "../components/homepage/ProfileHome";
 import EditProfileComponent from "../components/user/EditProfileComponent";
-import { getAllJobs } from "../services/JobService";
+import { UserContext } from "../context";
+import {
+  getAllFeaturedJobs,
+  getAllJobs,
+  getAppliedJobs,
+  getFeaturedJobs,
+} from "../services/JobService";
 import "./ProfileContainer.scss";
 
 class ProfileContainer extends React.Component {
@@ -14,11 +20,18 @@ class ProfileContainer extends React.Component {
 
   state = {
     jobs: [],
+    featuredJobs: [],
+    appliedJobs: [],
   };
 
   getJobs = async (search) => {
     const jobs = await getAllJobs(search.keyword, search.location);
     this.setState({ jobs: jobs });
+    const featuredJobs = await (search.keyword || search.location
+      ? getFeaturedJobs(search.keyword, search.location)
+      : getAllFeaturedJobs());
+    const appliedJobs = await getAppliedJobs(this.context.user.id);
+    this.setState({ jobs: jobs, featuredJobs: featuredJobs, appliedJobs });
   };
 
   render() {
@@ -28,7 +41,11 @@ class ProfileContainer extends React.Component {
         {this.props.editProfile ? (
           <EditProfileComponent />
         ) : (
-          <ProfileHome jobs={this.state.jobs} />
+          <ProfileHome
+            jobs={this.state.jobs}
+            featuredJobs={this.state.featuredJobs}
+            appliedJobs={this.state.appliedJobs}
+          />
         )}
       </div>
     );
@@ -38,4 +55,6 @@ class ProfileContainer extends React.Component {
 ProfileContainer.defaultProps = {
   editProfile: false,
 };
+
+ProfileContainer.contextType = UserContext;
 export default ProfileContainer;

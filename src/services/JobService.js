@@ -54,6 +54,16 @@ export const getFeaturedJobs = (keyword, location) => {
   );
 };
 
+export const getAppliedJobs = (id) => {
+  return trackPromise(
+    fetch(`${apiUrl}jobseekers/${id}/appliedJobs`).then((response) => {
+      return response
+        .json()
+        .then((jobs) => jobs.map((x) => formatJobFromAPI(x)));
+    })
+  );
+};
+
 export const getFeaturedJobDetails = (id) => {
   return trackPromise(
     fetch(`${apiUrl}/jobs/${id}`).then((response) => {
