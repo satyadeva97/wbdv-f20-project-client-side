@@ -5,7 +5,19 @@ export const registerUser = (body) => {
   return trackPromise(
     fetch(`${apiUrl}register`, {
       method: "POST",
-      body: JSON.stringify({ ...body, id: -1 }),
+      body: JSON.stringify({ ...body }),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      return response.json();
+    })
+  );
+};
+export const loginUser = (body) => {
+  return trackPromise(
+    fetch(`${apiUrl}login`, {
+      method: "POST",
+      body: JSON.stringify({ ...body }),
+      headers: { "Content-Type": "application/json" },
     }).then((response) => {
       return response.json();
     })

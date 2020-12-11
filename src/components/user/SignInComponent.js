@@ -1,16 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { getUserData, removeUserData, setUserData } from "../../helpers/helper";
-// import "./SignInComponent.scss"
+import { UserContext } from "../../context";
+import { removeUserData, setUserData } from "../../helpers/helper";
+import { loginUser } from "../../services/UserService";
 
 class SignInComponent extends React.Component {
   state = {
-    email: "",
+    username: "",
     password: "",
 
     submitted: false,
-
-    userData: getUserData(),
   };
 
   updateField = (event) => {
@@ -19,7 +17,7 @@ class SignInComponent extends React.Component {
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
@@ -27,20 +25,24 @@ class SignInComponent extends React.Component {
     });
 
     if (event.target.checkValidity()) {
-      // api
-      setUserData({ username: "TZ", id: "2", role: "jobseeker" });
-      this.props.history.push("/profile");
+      const user = await loginUser({
+        username: this.state.username,
+        password: this.state.password,
+      });
+      if (user && user.id) {
+        setUserData(user);
+        this.props.history.push("/profile");
+      }
     }
   };
   render() {
     return (
       <div className="container">
         <h1>Sign In</h1>
-        {this.state.userData.id ? (
+        {this.context.id ? (
           <div>
             <h5>
-              Hello {this.state.userData.username}, you need to logout to Signin
-              again
+              Hello {this.context.username}, you need to logout to Sign-In again
             </h5>
             <p>
               Click here to
@@ -48,7 +50,6 @@ class SignInComponent extends React.Component {
                 className="btn btn-link"
                 onClick={() => {
                   removeUserData();
-                  this.setState({ userData: getUserData() });
                 }}
               >
                 logout
@@ -66,19 +67,25 @@ class SignInComponent extends React.Component {
             onSubmit={this.onSubmit}
           >
             <div className="form-group row">
-              <label className="col-sm-2 col-form-label" htmlFor="email">
-                Email
+              <label className="col-sm-2 col-form-label" htmlFor="username">
+                Username
               </label>
               <div className="col-sm-10">
                 <input
                   required
                   onChange={this.updateField}
-                  className="form-control wbdv-field wbdv-password-verify"
-                  id="email"
-                  placeholder="user@email.com"
-                  type="email"
+                  className="form-control wbdv-field wbdv-username"
+                  id="username"
+                  placeholder="Homosapien"
+                  type="text"
+                  pattern="^(\w|\d)+.*$"
+                  minLength={3}
+                  maxLength={25}
                 />
-                <div className="invalid-feedback">Enter a Valid Email</div>
+                <div className="invalid-feedback">
+                  Username should start with a number/letter with length between
+                  3 , 25
+                </div>
               </div>
             </div>
 
@@ -130,5 +137,5 @@ class SignInComponent extends React.Component {
     );
   }
 }
-
+SignInComponent.contextType = UserContext;
 export default SignInComponent;
