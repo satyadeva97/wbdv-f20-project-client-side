@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../context";
 import { removeUserData, setUserData } from "../../helpers/helper";
 import { loginUser } from "../../services/UserService";
@@ -54,6 +55,7 @@ class SignInComponent extends React.Component {
               >
                 logout
               </button>
+              or go to <Link to="/">Home</Link>
             </p>
           </div>
         ) : (
