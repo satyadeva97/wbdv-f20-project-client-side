@@ -3,6 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import "./JobComponent.scss";
 class JobsCardComponent extends React.Component {
+  getHref = (job) => {
+    let url = this.props.job.id;
+    if (job.applied) {
+      url = `applied/${this.props.job.jobId}`;
+    } else if (job.jobId) {
+      url = `featured/${this.props.job.jobId}`;
+    }
+    return `job/${url}`;
+  };
+
   render() {
     return (
       <li className="flex-item p-0 b-0">
@@ -13,13 +23,7 @@ class JobsCardComponent extends React.Component {
               alt={this.props.job.company}
             />
           </div>
-          <a
-            href={`/job/${
-              this.props.job.jobId
-                ? `featured/${this.props.job.jobId}`
-                : this.props.job.id
-            }`}
-          >
+          <a href={this.getHref(this.props.job)}>
             <div className="job-designation">{this.props.job.title}</div>
           </a>
           <a href={this.props.job.company_url} target="_blank" rel="noreferrer">

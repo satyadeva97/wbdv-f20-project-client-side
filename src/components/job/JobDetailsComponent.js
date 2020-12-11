@@ -48,7 +48,7 @@ class JobDetailsComponent extends React.Component {
                   Show Description
                 </button>
               )
-            ) : job.applied ? (
+            ) : job.applied && this.context.user.id ? (
               <button className="btn btn-success">Applied</button>
             ) : (
               <button

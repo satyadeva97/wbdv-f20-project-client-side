@@ -45,12 +45,18 @@ class HomeContainer extends Component {
   };
 
   getJobById = async (id) => {
-    const job = await getJobDetailsById(id);
+    let job = await getJobDetailsById(id);
+    if (this.props.applied) {
+      job = { ...job, applied: true };
+    }
     this.setState({ selectedJob: job });
   };
 
   getFeaturedJobById = async (id) => {
-    const job = await getFeaturedJobDetails(id);
+    let job = await getFeaturedJobDetails(id);
+    if (this.props.applied) {
+      job = { ...job, applied: true };
+    }
     this.setState({ selectedJob: job });
   };
 
@@ -90,6 +96,7 @@ HomeContainer.defaultProps = {
   },
   jobId: "",
   featuredJobId: "",
+  applied: false,
 };
 
 export default HomeContainer;

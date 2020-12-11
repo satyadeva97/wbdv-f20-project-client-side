@@ -91,6 +91,19 @@ class App extends React.Component {
                   );
                 }}
               />
+              <Route
+                path="/job/applied/:jobId"
+                exact={true}
+                render={(props) => {
+                  return (
+                    <HomeContainer
+                      applied
+                      featuredJobId={props.match.params.jobId}
+                      {...props}
+                    />
+                  );
+                }}
+              />
 
               {/* Only Job Seeker can access these routes  */}
               <PrivateRoute

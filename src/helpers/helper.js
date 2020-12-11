@@ -1,4 +1,4 @@
-export const formatJobFromAPI = (job) => {
+export const formatJobFromAPI = (job, additionalFields) => {
   // github data
   // company: "Defendify"
   // company_logo: "https://jobs.github.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBblNOIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a2730d55401adcd2e1832cebe43cc72f28ecbf83/Defendify_grey_R.png"
@@ -31,6 +31,7 @@ export const formatJobFromAPI = (job) => {
     company_id: company ? company.companyId : "",
 
     id: job.extId || "ext_Id",
+    ...additionalFields,
   };
 };
 

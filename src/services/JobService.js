@@ -59,7 +59,9 @@ export const getAppliedJobs = (id) => {
     fetch(`${apiUrl}jobseekers/${id}/appliedJobs`).then((response) => {
       return response
         .json()
-        .then((jobs) => jobs.map((x) => formatJobFromAPI(x)));
+        .then((jobs) =>
+          jobs.map((x) => formatJobFromAPI(x, { applied: true }))
+        );
     })
   );
 };
