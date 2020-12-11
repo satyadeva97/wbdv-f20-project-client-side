@@ -13,7 +13,13 @@ class JobsCardComponent extends React.Component {
               alt={this.props.job.company}
             />
           </div>
-          <a href={`/job/${this.props.job.id}`}>
+          <a
+            href={`/job/${
+              this.props.job.jobId
+                ? `featured/${this.props.job.jobId}`
+                : this.props.job.id
+            }`}
+          >
             <div className="job-designation">{this.props.job.title}</div>
           </a>
           <a href={this.props.job.company_url} target="_blank" rel="noreferrer">

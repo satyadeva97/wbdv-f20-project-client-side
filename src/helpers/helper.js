@@ -1,4 +1,4 @@
-export const formatFeaturedJob = (job) => {
+export const formatJobFromAPI = (job) => {
   // github data
   // company: "Defendify"
   // company_logo: "https://jobs.github.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBblNOIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a2730d55401adcd2e1832cebe43cc72f28ecbf83/Defendify_grey_R.png"
@@ -16,19 +16,42 @@ export const formatFeaturedJob = (job) => {
   // company: {companyId: 1, name: "ABC", url: "abc.com", logo: "a1.jpg"}
   // createdAt: "2020-12-06T06:16:30.000+00:00"
   // description: "desc1"
-  // extId: null
+  // extId: "912fc53b-1b7f-427a-bc69-25f03b597f8c"
   // jobId: 1
   // location: "Boston, MA"
   // recruiter: null
   // title: "Software Engineer"
   // type: "Full Time"
+  const { company, ...restJob } = job;
   return {
-    ...job,
-    company: job.company.name,
-    company_logo: job.company.logo,
-    company_url: job.company.url,
+    ...restJob,
+    company: company.name,
+    company_logo: company.logo,
+    company_url: company.url,
+    company_id: company.companyId,
 
-    id: `featured/${job.jobId}`,
+    id: job.extId || "ext_Id",
+  };
+};
+
+export const formatJobToAPI = (job) => {
+  const {
+    id,
+    company,
+    company_logo,
+    company_url,
+    company_id,
+    ...restJob
+  } = job;
+  return {
+    ...restJob,
+    company: {
+      name: company,
+      logo: company_logo,
+      url: company_url,
+      companyId: company_id,
+    },
+    extId: id,
   };
 };
 

@@ -1,6 +1,6 @@
 import { trackPromise } from "react-promise-tracker";
 import { apiUrl, proxyUrl } from "./constants";
-import { formatFeaturedJob } from "../helpers/helper";
+import { formatJobFromAPI } from "../helpers/helper";
 
 export const getAllJobs = (keyword, location) => {
   return trackPromise(
@@ -37,7 +37,7 @@ export const getAllFeaturedJobs = () => {
     fetch(`${apiUrl}jobs`).then((response) => {
       return response
         .json()
-        .then((jobs) => jobs.map((x) => formatFeaturedJob(x)));
+        .then((jobs) => jobs.map((x) => formatJobFromAPI(x)));
     })
   );
 };
@@ -48,7 +48,7 @@ export const getFeaturedJobs = (keyword, location) => {
       (response) => {
         return response
           .json()
-          .then((jobs) => jobs.map((x) => formatFeaturedJob(x)));
+          .then((jobs) => jobs.map((x) => formatJobFromAPI(x)));
       }
     )
   );
@@ -57,7 +57,7 @@ export const getFeaturedJobs = (keyword, location) => {
 export const getFeaturedJobDetails = (id) => {
   return trackPromise(
     fetch(`${apiUrl}/jobs/${id}`).then((response) => {
-      return response.json().then((job) => formatFeaturedJob(job));
+      return response.json().then((job) => formatJobFromAPI(job));
     })
   );
 };

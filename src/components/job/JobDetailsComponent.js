@@ -25,7 +25,7 @@ class JobDetailsComponent extends React.Component {
             </h5>
             {job.recruiter && (
               <p>
-                Posted By <Link>{job.recruiter.firstName}</Link>
+                Posted By <Link>{job.recruiter.username}</Link>
               </p>
             )}
           </div>
@@ -47,9 +47,11 @@ class JobDetailsComponent extends React.Component {
                 </button>
               )
             ) : job.applied ? (
-              <button className="btn btn-danger">Apply</button>
-            ) : (
               <button className="btn btn-success">Applied</button>
+            ) : (
+              <button className="btn btn-danger" onClick={() => {}}>
+                Apply
+              </button>
             )}
           </div>
         </div>
@@ -84,32 +86,7 @@ class JobDetailsComponent extends React.Component {
 
   render() {
     return this.props.job.id ? (
-      this.renderJob({
-        ...this.props.job,
-        postedBy: { id: 1, name: "MUSK" },
-        applicants: [
-          {
-            name: "Steve Jobs",
-            id: "3",
-            appliedOn: "29-02-2020",
-          },
-          {
-            name: "Steve Jobs",
-            id: "3",
-            appliedOn: "29-02-2020",
-          },
-          {
-            name: "Steve Jobs",
-            id: "3",
-            appliedOn: "29-02-2020",
-          },
-          {
-            name: "Steve Jobs",
-            id: "3",
-            appliedOn: "29-02-2020",
-          },
-        ],
-      })
+      this.renderJob(this.props.job)
     ) : (
       <p>Description</p>
     );
