@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import JobsCardComponent from "../job/JobsCardComponent";
 import "./home.scss";
 
@@ -7,7 +8,14 @@ class RecruiterHome extends React.Component {
     return (
       <div>
         <div>
-          <h3>Posted Jobs ({this.props.jobs.length}):</h3>
+          <h3 className="d-flex justify-content-between mt-1">
+            <span>Posted Jobs ({this.props.jobs.length}):</span>
+            <span>
+              <Link to="postJob">
+                <button className="btn btn-warning">Create Job</button>
+              </Link>
+            </span>
+          </h3>
 
           {this.props.jobs.length === 0 && <h5>No jobs Posted</h5>}
 
