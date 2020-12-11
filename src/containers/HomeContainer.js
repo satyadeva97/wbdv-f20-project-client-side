@@ -63,6 +63,7 @@ class HomeContainer extends Component {
             <JobDetailsComponent
               jobId={this.props.jobId || this.props.featuredJobId}
               job={this.state.selectedJob}
+              history={this.props.history}
             />
           </>
         ) : (

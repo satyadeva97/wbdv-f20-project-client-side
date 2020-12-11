@@ -25,10 +25,10 @@ export const formatJobFromAPI = (job) => {
   const { company, ...restJob } = job;
   return {
     ...restJob,
-    company: company.name,
-    company_logo: company.logo,
-    company_url: company.url,
-    company_id: company.companyId,
+    company: company ? company.name : "",
+    company_logo: company ? company.logo : "",
+    company_url: company ? company.url : "",
+    company_id: company ? company.companyId : "",
 
     id: job.extId || "ext_Id",
   };

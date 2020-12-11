@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, useLocation } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({
   condition,
@@ -8,8 +8,6 @@ const PrivateRoute = ({
   redirectComponent,
   ...rest
 }) => {
-  const location = useLocation();
-
   return (
     <Route {...rest}>
       {condition ? (
@@ -20,7 +18,7 @@ const PrivateRoute = ({
         <Redirect
           to={{
             pathname: "/login",
-            state: { from: location, message: message },
+            state: { from: rest.path, message: message },
           }}
         />
       )}

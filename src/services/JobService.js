@@ -1,6 +1,6 @@
 import { trackPromise } from "react-promise-tracker";
 import { apiUrl, proxyUrl } from "./constants";
-import { formatJobFromAPI } from "../helpers/helper";
+import { formatJobFromAPI, formatJobToAPI } from "../helpers/helper";
 
 export const getAllJobs = (keyword, location) => {
   return trackPromise(
@@ -57,6 +57,18 @@ export const getFeaturedJobs = (keyword, location) => {
 export const getFeaturedJobDetails = (id) => {
   return trackPromise(
     fetch(`${apiUrl}/jobs/${id}`).then((response) => {
+      return response.json().then((job) => formatJobFromAPI(job));
+    })
+  );
+};
+
+export const applyJob = (job, id) => {
+  return trackPromise(
+    fetch(`${apiUrl}jobs/apply/${id}`, {
+      method: "POST",
+      body: JSON.stringify(formatJobToAPI(job)),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
       return response.json().then((job) => formatJobFromAPI(job));
     })
   );

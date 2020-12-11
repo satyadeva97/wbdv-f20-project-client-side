@@ -32,16 +32,28 @@ class SignInComponent extends React.Component {
       });
       if (user && user.id) {
         setUserData(user, this.context.updateUser);
-        this.props.history.push(
-          user.type === "jobseeker" ? "/profile" : "/recruiter"
-        );
+        if (
+          this.props.history.location.state &&
+          this.props.history.location.state.from
+        ) {
+          this.props.history.push(this.props.history.location.state.from);
+        } else {
+          this.props.history.push(
+            user.type === "jobseeker" ? "/profile" : "/recruiter"
+          );
+        }
       }
     }
   };
   render() {
+    console.log(this.props.history.location);
     return (
       <div className="container">
         <h1>Sign In</h1>
+        {this.props.history.location.state &&
+          this.props.history.location.state.message && (
+            <h3>{this.props.history.location.state.message}</h3>
+          )}
         {this.context.user.id ? (
           <div>
             <h5>

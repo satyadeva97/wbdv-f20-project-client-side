@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context";
+import { applyJob } from "../../services/JobService";
 import "./JobComponent.scss";
 
 class JobDetailsComponent extends React.Component {
@@ -49,7 +51,19 @@ class JobDetailsComponent extends React.Component {
             ) : job.applied ? (
               <button className="btn btn-success">Applied</button>
             ) : (
-              <button className="btn btn-danger" onClick={() => {}}>
+              <button
+                className="btn btn-danger"
+                onClick={async () => {
+                  if (this.context.user.id) {
+                    await applyJob(job, this.context.user.id);
+                  } else {
+                    this.props.history.push("/signIn", {
+                      message: "Please Login to apply ",
+                      from: this.props.history.location.pathname,
+                    });
+                  }
+                }}
+              >
                 Apply
               </button>
             )}
@@ -92,4 +106,7 @@ class JobDetailsComponent extends React.Component {
     );
   }
 }
+
+JobDetailsComponent.contextType = UserContext;
+
 export default JobDetailsComponent;
