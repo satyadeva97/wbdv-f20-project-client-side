@@ -1,4 +1,7 @@
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../context";
 import "./HeaderComponent.scss";
 
@@ -66,12 +69,28 @@ class HeaderComponent extends React.Component {
             </ul>
           </div>
           <div className="nav justify-content-end">
-            <a className="bg-secondary text-white" href="/signIn">
-              <button className="btn btn-secondary ">Sign-In</button>
-            </a>
-            <a className="bg-primary text-white ml-2" href="/signUp">
-              <button className="btn btn-primary">Sign-Up</button>
-            </a>
+            {this.context.id ? (
+              <>
+                <a className="bg-secondary text-white" href="/signIn">
+                  <button className="btn btn-secondary ">Sign-In</button>
+                </a>
+                <a className="bg-primary text-white ml-2" href="/signUp">
+                  <button className="btn btn-primary">Sign-Up</button>
+                </a>
+              </>
+            ) : (
+              <>
+                <Link to="/editProfile">
+                  <button
+                    className="btn btn-secondary"
+                    type="button"
+                    id="profile"
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </>
