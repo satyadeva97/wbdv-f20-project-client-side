@@ -27,7 +27,10 @@ class JobDetailsComponent extends React.Component {
             </h5>
             {job.recruiter && (
               <p>
-                Posted By <Link>{job.recruiter.username}</Link>
+                Posted By{" "}
+                <Link to={`/viewProfile/${job.recruiter.id}`}>
+                  {job.recruiter.username}
+                </Link>
               </p>
             )}
           </div>
@@ -84,8 +87,10 @@ class JobDetailsComponent extends React.Component {
                   return (
                     <div className="list-group-item list-group-item-action ">
                       <div className="d-flex w-100 justify-content-between">
-                        <Link className="mb-1">{a.name}</Link>
-                        <small>{a.appliedOn}</small>
+                        <Link className="mb-1" to={`/viewProfile/${a.id}`}>
+                          {a.username}
+                        </Link>
+                        <small>{a.email}</small>
                       </div>
                     </div>
                   );

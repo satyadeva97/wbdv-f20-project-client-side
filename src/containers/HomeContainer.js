@@ -6,6 +6,7 @@ import {
   getAllFeaturedJobs,
   getJobDetailsById,
   getFeaturedJobDetails,
+  getApplicants,
 } from "../services/JobService";
 import JobsComponent from "../components/job/JobsComponent";
 import JobDetailsComponent from "../components/job/JobDetailsComponent";
@@ -56,6 +57,9 @@ class HomeContainer extends Component {
     let job = await getFeaturedJobDetails(id);
     if (this.props.applied) {
       job = { ...job, applied: true };
+    } else if (this.props.posted) {
+      const applicants = await getApplicants(id);
+      job = { ...job, posted: true, applicants };
     }
     this.setState({ selectedJob: job });
   };
@@ -97,6 +101,7 @@ HomeContainer.defaultProps = {
   jobId: "",
   featuredJobId: "",
   applied: false,
+  posted: false,
 };
 
 export default HomeContainer;

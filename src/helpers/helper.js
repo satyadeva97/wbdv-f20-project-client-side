@@ -30,7 +30,7 @@ export const formatJobFromAPI = (job, additionalFields) => {
     company_url: company ? company.url : "",
     company_id: company ? company.companyId : "",
 
-    id: job.extId || "ext_Id",
+    id: job.extId || `ext_Id-${job.jobId}`,
     ...additionalFields,
   };
 };

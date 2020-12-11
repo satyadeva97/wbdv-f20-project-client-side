@@ -2,23 +2,24 @@ import React from "react";
 import HeaderComponent from "../components/core/HeaderComponent";
 import RecruiterHome from "../components/homepage/RecruiterHome";
 import JobsPostComponent from "../components/job/JobPostComponent";
-import { getAllJobs } from "../services/JobService";
+import { UserContext } from "../context";
+import { getPostedJobs } from "../services/JobService";
 import "./RecruiterContainer.scss";
 
 class RecruiterContainer extends React.Component {
   componentDidMount() {
     if (!this.props.postJob) {
-      this.getJobs({ keyword: "", location: "" });
+      this.getJobs();
     }
   }
 
   state = {
-    jobs: [],
+    postedJobs: [],
   };
 
-  getJobs = async (search) => {
-    const jobs = await getAllJobs(search.keyword, search.location);
-    this.setState({ jobs: jobs });
+  getJobs = async () => {
+    const jobs = await getPostedJobs(this.context.user.id);
+    this.setState({ postedJobs: jobs });
   };
 
   render() {
@@ -29,7 +30,7 @@ class RecruiterContainer extends React.Component {
         {this.props.postJob ? (
           <JobsPostComponent />
         ) : (
-          <RecruiterHome jobs={this.state.jobs} />
+          <RecruiterHome jobs={this.state.postedJobs} />
         )}
       </div>
     );
@@ -39,4 +40,7 @@ class RecruiterContainer extends React.Component {
 RecruiterContainer.defaultProps = {
   postJob: false,
 };
+
+RecruiterContainer.contextType = UserContext;
+
 export default RecruiterContainer;

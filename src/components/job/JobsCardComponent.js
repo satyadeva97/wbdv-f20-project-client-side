@@ -7,6 +7,8 @@ class JobsCardComponent extends React.Component {
     let url = this.props.job.id;
     if (job.applied) {
       url = `applied/${this.props.job.jobId}`;
+    } else if (job.posted) {
+      url = `posted/${this.props.job.jobId}`;
     } else if (job.jobId) {
       url = `featured/${this.props.job.jobId}`;
     }

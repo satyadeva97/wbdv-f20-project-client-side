@@ -66,6 +66,24 @@ export const getAppliedJobs = (id) => {
   );
 };
 
+export const getPostedJobs = (id) => {
+  return trackPromise(
+    // fetch(`${apiUrl}recruiters/${id}/postedJobs`).then((response) => {
+    fetch(`${apiUrl}jobs`).then((response) => {
+      return response
+        .json()
+        .then((jobs) => jobs.map((x) => formatJobFromAPI(x, { posted: true })));
+    })
+  );
+};
+export const getApplicants = (id) => {
+  return trackPromise(
+    fetch(`${apiUrl}jobs/${id}/applicants`).then((response) => {
+      return response.json();
+    })
+  );
+};
+
 export const getFeaturedJobDetails = (id) => {
   return trackPromise(
     fetch(`${apiUrl}/jobs/${id}`).then((response) => {

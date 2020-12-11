@@ -91,6 +91,7 @@ class App extends React.Component {
                   );
                 }}
               />
+
               <Route
                 path="/job/applied/:jobId"
                 exact={true}
@@ -98,6 +99,19 @@ class App extends React.Component {
                   return (
                     <HomeContainer
                       applied
+                      featuredJobId={props.match.params.jobId}
+                      {...props}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/job/posted/:jobId"
+                exact={true}
+                render={(props) => {
+                  return (
+                    <HomeContainer
+                      posted
                       featuredJobId={props.match.params.jobId}
                       {...props}
                     />
@@ -152,6 +166,7 @@ class App extends React.Component {
                 }
                 message="Only Recruiter can view this page. Please login as recruiter to view this Page"
               />
+
               <Route component={NoMatchComponent} />
             </Switch>
           </Router>
