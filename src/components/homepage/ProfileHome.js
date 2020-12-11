@@ -23,7 +23,7 @@ class ProfileHome extends React.Component {
           )}
         </div>
         <div>
-          <h5>Featured Jobs:</h5>
+          <h5>Recent Jobs:</h5>
           {this.props.jobs.length && (
             <ul className="border-li">
               <JobCarouselComponent slides={this.props.jobs} />
