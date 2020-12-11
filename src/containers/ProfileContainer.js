@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderComponent from "../components/core/HeaderComponent";
 import ProfileHome from "../components/homepage/ProfileHome";
+import JobsCardComponent from "../components/job/JobsCardComponent";
 import EditProfileComponent from "../components/user/EditProfileComponent";
 import { UserContext } from "../context";
 import {
@@ -14,7 +15,11 @@ import "./ProfileContainer.scss";
 class ProfileContainer extends React.Component {
   componentDidMount() {
     if (!this.props.editProfile) {
-      this.getJobs({ keyword: "", location: "" });
+      if (this.props.showAppliedJobsOnly) {
+        this.getAppliedJobsOnly();
+      } else {
+        this.getJobs({ keyword: "", location: "" });
+      }
     }
   }
 
@@ -34,12 +39,30 @@ class ProfileContainer extends React.Component {
     this.setState({ jobs: jobs, featuredJobs: featuredJobs, appliedJobs });
   };
 
+  getAppliedJobsOnly = async () => {
+    const appliedJobs = await getAppliedJobs(this.context.user.id);
+    this.setState({ appliedJobs });
+  };
+
   render() {
     return (
       <div className="container-fluid profile-container">
         <HeaderComponent />
         {this.props.editProfile ? (
           <EditProfileComponent />
+        ) : this.props.showAppliedJobsOnly ? (
+          <>
+            <h1>Applied Jobs:</h1>
+            {this.state.appliedJobs.length === 0 && <h5>No jobs applied</h5>}
+
+            {this.state.appliedJobs && (
+              <ul className="row flex-container wrap no-gutters">
+                {this.state.appliedJobs.map((job) => {
+                  return <JobsCardComponent key={job.id} job={job} />;
+                })}
+              </ul>
+            )}
+          </>
         ) : (
           <ProfileHome
             jobs={this.state.jobs}
@@ -54,6 +77,7 @@ class ProfileContainer extends React.Component {
 
 ProfileContainer.defaultProps = {
   editProfile: false,
+  showAppliedJobsOnly: false,
 };
 
 ProfileContainer.contextType = UserContext;

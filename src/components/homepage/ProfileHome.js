@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import JobCarouselComponent from "../job/JobCarousel";
 import "./home.scss";
 
@@ -7,7 +8,10 @@ class ProfileHome extends React.Component {
     return (
       <div>
         <div>
-          <h5>Applied Jobs ({this.props.appliedJobs.length})</h5>
+          <h5>
+            Applied Jobs ({this.props.appliedJobs.length}): Click here to view
+            all <Link to="/appliedJobs">applied jobs</Link>
+          </h5>
           {this.props.appliedJobs.length && (
             <ul className="border-li">
               <JobCarouselComponent

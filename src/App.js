@@ -124,7 +124,15 @@ class App extends React.Component {
                 }
                 message="Only signed in user can view the profile. Please login to view this Page"
               />
-
+              <PrivateRoute
+                condition={true}
+                path="/appliedJobs"
+                component={<ProfileContainer showAppliedJobsOnly />}
+                redirectComponent={
+                  <WarningComponent message="Only signed in user can view the profile. Please login to view this Page" />
+                }
+                message="Only signed in user can view the profile. Please login to view this Page"
+              />
               {/* Only Recruiter can access these routes */}
               <PrivateRoute
                 condition={true}
