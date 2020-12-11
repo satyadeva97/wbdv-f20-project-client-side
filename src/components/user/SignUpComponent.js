@@ -58,7 +58,9 @@ class SignUpComponent extends React.Component {
       const user = await registerUser(body);
       if (user && user.id) {
         setUserData(user, this.context.updateUser);
-        this.props.history.push("/profile");
+        this.props.history.push(
+          user.type === "jobseeker" ? "/profile" : "/recruiter"
+        );
       }
     }
   };
