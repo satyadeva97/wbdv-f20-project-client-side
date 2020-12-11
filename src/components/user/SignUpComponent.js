@@ -41,7 +41,6 @@ class SignUpComponent extends React.Component {
       };
       delete body.submitted;
       delete body.verifyPassword;
-      delete body.type;
       delete body.agree;
       delete body.company;
       delete body.companyUrl;
@@ -58,7 +57,7 @@ class SignUpComponent extends React.Component {
 
       const user = await registerUser(body);
       if (user && user.id) {
-        setUserData(user);
+        setUserData(user, this.context.updateUser);
         this.props.history.push("/profile");
       }
     }
@@ -68,11 +67,13 @@ class SignUpComponent extends React.Component {
     return (
       <div className="container">
         <h1>Sign Up</h1>
-        {this.context.id ? (
+        {this.context.user.id ? (
           <div>
-            <h5>Hello {this.context.username}, you have already registered</h5>
+            <h5>
+              Hello {this.context.user.username}, you have already registered
+            </h5>
             <p>
-              Click here to go to
+              {"Click here to go to "}
               <Link to="/">Home</Link>
             </p>
           </div>

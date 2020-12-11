@@ -37,7 +37,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <UserContext.Provider value={this.state.user}>
+        <UserContext.Provider
+          value={{ user: this.state.user, updateUser: this.onStorageUpdate }}
+        >
           <Router>
             <Switch>
               {/* Every One can access these */}

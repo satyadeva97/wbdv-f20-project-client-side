@@ -32,16 +32,18 @@ export const formatFeaturedJob = (job) => {
   };
 };
 
-export const setUserData = (user) => {
+export const setUserData = (user, propogator = () => {}) => {
   localStorage.setItem("username", user.username);
   localStorage.setItem("id", user.id);
   localStorage.setItem("type", user.type);
+  propogator();
 };
 
-export const removeUserData = () => {
+export const removeUserData = (propogator = () => {}) => {
   localStorage.removeItem("username");
   localStorage.removeItem("type");
   localStorage.removeItem("id");
+  propogator();
 };
 
 export const getUserData = () => {

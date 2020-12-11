@@ -31,7 +31,7 @@ class SignInComponent extends React.Component {
         password: this.state.password,
       });
       if (user && user.id) {
-        setUserData(user);
+        setUserData(user, this.context.updateUser);
         this.props.history.push("/profile");
       }
     }
@@ -40,17 +40,18 @@ class SignInComponent extends React.Component {
     return (
       <div className="container">
         <h1>Sign In</h1>
-        {this.context.id ? (
+        {this.context.user.id ? (
           <div>
             <h5>
-              Hello {this.context.username}, you need to logout to Sign-In again
+              Hello {this.context.user.username}, you need to logout to Sign-In
+              again
             </h5>
             <p>
               Click here to
               <button
                 className="btn btn-link"
                 onClick={() => {
-                  removeUserData();
+                  removeUserData(this.context.updateUser);
                 }}
               >
                 logout
@@ -139,5 +140,7 @@ class SignInComponent extends React.Component {
     );
   }
 }
+
 SignInComponent.contextType = UserContext;
+
 export default SignInComponent;

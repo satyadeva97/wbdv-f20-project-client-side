@@ -1,4 +1,5 @@
 import React from "react";
+import { UserContext } from "../../context";
 import "./HeaderComponent.scss";
 
 class HeaderComponent extends React.Component {
@@ -48,11 +49,20 @@ class HeaderComponent extends React.Component {
                   Jobs
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/recruiter">
-                  Profile
-                </a>
-              </li>
+              {this.context.user.id && (
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href={
+                      this.context.user.type === "jobseeker"
+                        ? "/profile"
+                        : "/recruiter"
+                    }
+                  >
+                    Profile
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
           <div className="nav justify-content-end">
@@ -68,5 +78,6 @@ class HeaderComponent extends React.Component {
     );
   }
 }
+HeaderComponent.contextType = UserContext;
 
 export default HeaderComponent;
