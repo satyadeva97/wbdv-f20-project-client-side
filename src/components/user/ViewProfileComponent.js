@@ -50,13 +50,13 @@ class EditProfileComponent extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label" htmlFor="role">
-              Role
+            <label className="col-sm-2 col-form-label" htmlFor="type">
+              Type
             </label>
             <div className="col-sm-10">
-              <select className="form-control wbdv-field wbdv-role" id="role">
-                <option value="Faculty">Job Seeker</option>
-                <option value="Student">Recruiter</option>
+              <select className="form-control wbdv-field wbdv-type" id="type">
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Recruiter</option>
               </select>
             </div>
           </div>

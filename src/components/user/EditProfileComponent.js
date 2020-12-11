@@ -2,7 +2,7 @@ import React from "react";
 
 class EditProfileComponent extends React.Component {
   state = {
-    role: "Job Seeker",
+    type: "Job Seeker",
     email: "email@email.com",
     username: "Robot",
     phone: "(123) 156-234",
@@ -38,15 +38,15 @@ class EditProfileComponent extends React.Component {
         >
           <div className="form-group row">
             <div className="form-group row">
-              <label className="col-sm-2 col-form-label" htmlFor="role">
-                Role
+              <label className="col-sm-2 col-form-label" htmlFor="type">
+                Type
               </label>
               <div className="col-sm-10">
                 <input
                   required
-                  value={this.state.role}
+                  value={this.state.type}
                   className="form-control wbdv-field "
-                  id="role"
+                  id="type"
                   placeholder="Job Seeker"
                   readOnly
                 />

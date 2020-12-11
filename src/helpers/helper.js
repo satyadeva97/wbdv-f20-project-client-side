@@ -35,12 +35,12 @@ export const formatFeaturedJob = (job) => {
 export const setUserData = (user) => {
   localStorage.setItem("username", user.username);
   localStorage.setItem("id", user.id);
-  localStorage.setItem("role", user.role ? 0 : 1);
+  localStorage.setItem("type", user.type);
 };
 
 export const removeUserData = () => {
   localStorage.removeItem("username");
-  localStorage.removeItem("role");
+  localStorage.removeItem("type");
   localStorage.removeItem("id");
 };
 
@@ -48,6 +48,6 @@ export const getUserData = () => {
   return {
     username: localStorage.getItem("username"),
     id: localStorage.getItem("id"),
-    role: localStorage.getItem("role"),
+    type: localStorage.getItem("type"),
   };
 };
