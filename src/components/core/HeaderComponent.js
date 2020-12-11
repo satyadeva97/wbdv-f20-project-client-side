@@ -69,16 +69,7 @@ class HeaderComponent extends React.Component {
             </ul>
           </div>
           <div className="nav justify-content-end">
-            {this.context.id ? (
-              <>
-                <a className="bg-secondary text-white" href="/signIn">
-                  <button className="btn btn-secondary ">Sign-In</button>
-                </a>
-                <a className="bg-primary text-white ml-2" href="/signUp">
-                  <button className="btn btn-primary">Sign-Up</button>
-                </a>
-              </>
-            ) : (
+            {this.context.user.id ? (
               <>
                 <Link to="/editProfile">
                   <button
@@ -89,6 +80,15 @@ class HeaderComponent extends React.Component {
                     <FontAwesomeIcon icon={faUser} />
                   </button>
                 </Link>
+              </>
+            ) : (
+              <>
+                <a className="bg-secondary text-white" href="/signIn">
+                  <button className="btn btn-secondary ">Sign-In</button>
+                </a>
+                <a className="bg-primary text-white ml-2" href="/signUp">
+                  <button className="btn btn-primary">Sign-Up</button>
+                </a>
               </>
             )}
           </div>

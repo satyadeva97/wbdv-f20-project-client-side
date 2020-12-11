@@ -1,4 +1,7 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { UserContext } from "../../context";
+import { removeUserData } from "../../helpers/helper";
 
 class EditProfileComponent extends React.Component {
   state = {
@@ -134,7 +137,13 @@ class EditProfileComponent extends React.Component {
         </form>
         <div className="form-group row">
           <div className="col-sm-10 offset-sm-2">
-            <button className="btn btn-danger btn-block wbdv-button wbdv-logout">
+            <button
+              className="btn btn-danger btn-block wbdv-button wbdv-logout"
+              onClick={() => {
+                removeUserData(this.context.updateUser);
+                this.props.history.push("/");
+              }}
+            >
               Logout
             </button>
           </div>
@@ -144,4 +153,6 @@ class EditProfileComponent extends React.Component {
   }
 }
 
-export default EditProfileComponent;
+EditProfileComponent.contextType = UserContext;
+
+export default withRouter(EditProfileComponent);
