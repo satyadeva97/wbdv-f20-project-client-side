@@ -46,7 +46,6 @@ class SignInComponent extends React.Component {
     }
   };
   render() {
-    console.log(this.props.history.location);
     return (
       <div className="container">
         <h1>Sign In</h1>

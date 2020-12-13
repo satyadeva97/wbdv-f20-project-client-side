@@ -34,7 +34,7 @@ class JobDetailsComponent extends React.Component {
               </p>
             )}
           </div>
-          <div className="col col-sm-1">
+          <div className="col col-sm-2">
             {job.applicants ? (
               this.state.showDescription ? (
                 <button
@@ -54,23 +54,47 @@ class JobDetailsComponent extends React.Component {
             ) : job.applied && this.context.user.id ? (
               <button className="btn btn-success">Applied</button>
             ) : (
-              <button
-                className="btn btn-danger"
-                onClick={async () => {
-                  if (this.context.user.id) {
-                    await applyJob(job, this.context.user.id);
-                  } else {
-                    this.props.history.push("/signIn", {
-                      message: "Please Login to apply ",
-                      from: this.props.history.location.pathname,
-                    });
-                  }
-                }}
-              >
-                Apply
-              </button>
+              this.context.user.type !== "recruiter" && (
+                <button
+                  className="btn btn-danger"
+                  onClick={async () => {
+                    if (this.context.user.id) {
+                      await applyJob(job, this.context.user.id);
+                    } else {
+                      this.props.history.push("/signIn", {
+                        message: "Please Login to apply ",
+                        from: this.props.history.location.pathname,
+                      });
+                    }
+                  }}
+                >
+                  Apply
+                </button>
+              )
             )}
           </div>
+          {job.applicants && (
+            <div className="col col-sm-1 d-flex flex-column justify-content-center align-items-between">
+              <button
+                onClick={() => {
+                  this.props.editJob(this.props.job);
+                }}
+                type="button"
+                className="btn btn-primary"
+              >
+                {" Edit "}
+              </button>
+              <button
+                onClick={() => {
+                  this.props.deleteJob(this.props.job);
+                }}
+                type="button"
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
         <div className="card-body">
           <h5>
@@ -82,10 +106,13 @@ class JobDetailsComponent extends React.Component {
             <p dangerouslySetInnerHTML={{ __html: job.description }}></p>
           ) : (
             <>
-              <ul class="list-group">
+              <ul className="list-group">
                 {job.applicants.map((a) => {
                   return (
-                    <div className="list-group-item list-group-item-action ">
+                    <div
+                      key={a.id}
+                      className="list-group-item list-group-item-action "
+                    >
                       <div className="d-flex w-100 justify-content-between">
                         <Link className="mb-1" to={`/viewProfile/${a.id}`}>
                           {a.username}
