@@ -7,6 +7,7 @@ import "./JobComponent.scss";
 class JobDetailsComponent extends React.Component {
   state = {
     showDescription: true,
+    applied: this.props.job.applied,
   };
   toggleDescription = () => {
     this.setState({ showDescription: !this.state.showDescription });
@@ -28,7 +29,12 @@ class JobDetailsComponent extends React.Component {
             {job.recruiter && (
               <p>
                 Posted By{" "}
-                <Link to={`/viewProfile/${job.recruiter.username}`}>
+                <Link
+                  to={{
+                    pathname: `/viewProfile/${job.recruiter.id}`,
+                    state: { type: "recruiter" },
+                  }}
+                >
                   {job.recruiter.username}
                 </Link>
               </p>
@@ -51,7 +57,7 @@ class JobDetailsComponent extends React.Component {
                   Show Description
                 </button>
               )
-            ) : job.applied && this.context.user.id ? (
+            ) : (job.applied || this.state.applied) && this.context.user.id ? (
               <button className="btn btn-success">Applied</button>
             ) : (
               this.context.user.type !== "recruiter" && (
@@ -59,7 +65,13 @@ class JobDetailsComponent extends React.Component {
                   className="btn btn-danger"
                   onClick={async () => {
                     if (this.context.user.id) {
-                      await applyJob(job, this.context.user.id);
+                      const response = await applyJob(
+                        job,
+                        this.context.user.id
+                      );
+                      if (response) {
+                        this.setState({ applied: true });
+                      }
                     } else {
                       this.props.history.push("/signIn", {
                         message: "Please Login to apply ",
@@ -73,7 +85,7 @@ class JobDetailsComponent extends React.Component {
               )
             )}
           </div>
-          {job.applicants && (
+          {job.applicants && !job.hideEdit && (
             <div className="col col-sm-1 d-flex flex-column justify-content-center align-items-between">
               <button
                 onClick={() => {
@@ -114,10 +126,18 @@ class JobDetailsComponent extends React.Component {
                       className="list-group-item list-group-item-action "
                     >
                       <div className="d-flex w-100 justify-content-between">
-                        <Link className="mb-1" to={`/viewProfile/${a.id}`}>
+                        <Link
+                          className="mb-1"
+                          to={{
+                            pathname: `/viewProfile/${a.id}`,
+                            state: { type: "jobseeker" },
+                          }}
+                        >
                           {a.username}
                         </Link>
-                        <small>{a.email}</small>
+                        <small>
+                          <a href={`mailto:${a.email}`}>{a.email}</a>
+                        </small>
                       </div>
                     </div>
                   );

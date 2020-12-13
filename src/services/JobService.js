@@ -68,8 +68,7 @@ export const getAppliedJobs = (id) => {
 
 export const getPostedJobs = (id) => {
   return trackPromise(
-    // fetch(`${apiUrl}recruiters/${id}/postedJobs`).then((response) => {
-    fetch(`${apiUrl}jobs`).then((response) => {
+    fetch(`${apiUrl}recruiters/${id}/postedJobs`).then((response) => {
       return response
         .json()
         .then((jobs) => jobs.map((x) => formatJobFromAPI(x, { posted: true })));
@@ -99,34 +98,40 @@ export const applyJob = (job, id) => {
       body: JSON.stringify(formatJobToAPI(job)),
       headers: { "Content-Type": "application/json" },
     }).then((response) => {
-      return response.json().then((job) => formatJobFromAPI(job));
+      return response.status === 200;
     })
   );
 };
 
 export const postJob = (job) => {
-  return fetch(`${apiUrl}jobs`, {
-    method: "POST",
-    body: JSON.stringify({ ...job }),
-    headers: { "Content-Type": "application/json" },
-  }).then((response) => {
-    return response.json();
-  });
+  return trackPromise(
+    fetch(`${apiUrl}jobs`, {
+      method: "POST",
+      body: JSON.stringify({ ...job }),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      return response.json();
+    })
+  );
 };
 export const updateJob = (job) => {
-  return fetch(`${apiUrl}jobs/${job.jobId}`, {
-    method: "PUT",
-    body: JSON.stringify(formatJobToAPI(job)),
-    headers: { "Content-Type": "application/json" },
-  }).then((response) => {
-    return response.json();
-  });
+  return trackPromise(
+    fetch(`${apiUrl}jobs/${job.jobId}`, {
+      method: "PUT",
+      body: JSON.stringify(formatJobToAPI(job)),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      return response.json();
+    })
+  );
 };
 
 export const deleteJob = (jobId) => {
-  return fetch(`${apiUrl}jobs/${jobId}`, {
-    method: "DELETE",
-  }).then((response) => {
-    return response.json();
-  });
+  return trackPromise(
+    fetch(`${apiUrl}jobs/${jobId}`, {
+      method: "DELETE",
+    }).then((response) => {
+      return response.json();
+    })
+  );
 };

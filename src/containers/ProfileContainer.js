@@ -13,13 +13,23 @@ import {
 import "./ProfileContainer.scss";
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  updateCallback() {
     if (!this.props.editProfile) {
       if (this.props.showAppliedJobsOnly) {
         this.getAppliedJobsOnly();
       } else {
         this.getJobs({ keyword: "", location: "" });
       }
+    }
+  }
+
+  componentDidMount() {
+    this.updateCallback();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.editProfile !== this.props.editProfile) {
+      this.updateCallback();
     }
   }
 
