@@ -25,6 +25,7 @@ class RecruiterHome extends React.Component {
   deleteJobFromAPI = async () => {
     await deleteJob(this.state.deleteJob.jobId);
 
+    this.props.history.push("/recruiter");
     this.props.getAllJobs();
     this.setState({ deleteJob: null });
   };
@@ -118,7 +119,7 @@ class RecruiterHome extends React.Component {
                       {!this.props.postedJobId && (
                         <div className="modal-body">
                           <JobDetailsComponent
-                            job={{ ...this.state.deleteJob, posted: false }}
+                            job={{ ...this.state.deleteJob, hideEdit: true }}
                           />
                         </div>
                       )}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class WarningComponent extends React.Component {
   render() {
     return (
-      <div className="jumbotron">
+      <div className="container jumbotron">
         <h1 className="display-4">
           <b>{this.props.message}</b>
         </h1>
