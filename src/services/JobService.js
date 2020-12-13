@@ -105,5 +105,28 @@ export const applyJob = (job, id) => {
 };
 
 export const postJob = (job) => {
-  return true;
+  return fetch(`${apiUrl}jobs`, {
+    method: "POST",
+    body: JSON.stringify({ ...job }),
+    headers: { "Content-Type": "application/json" },
+  }).then((response) => {
+    return response.json();
+  });
+};
+export const updateJob = (job) => {
+  return fetch(`${apiUrl}jobs/${job.jobId}`, {
+    method: "PUT",
+    body: JSON.stringify(formatJobToAPI(job)),
+    headers: { "Content-Type": "application/json" },
+  }).then((response) => {
+    return response.json();
+  });
+};
+
+export const deleteJob = (jobId) => {
+  return fetch(`${apiUrl}jobs/${jobId}`, {
+    method: "DELETE",
+  }).then((response) => {
+    return response.json();
+  });
 };
