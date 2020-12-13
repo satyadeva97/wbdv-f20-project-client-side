@@ -14,6 +14,10 @@ import ProfileContainer from "./containers/ProfileContainer";
 import { UserContext } from "./context";
 import { getUserData } from "./helpers/helper";
 
+const canAccess = (user, type = "jobseeker") => {
+  return user && user.type && user.type === type;
+};
+
 class App extends React.Component {
   state = {
     user: getUserData(),
@@ -92,73 +96,65 @@ class App extends React.Component {
                 }}
               />
 
+              {/* Only Job Seeker can access these routes  */}
+              <PrivateRoute
+                condition={
+                  canAccess(this.state.user) ||
+                  canAccess(this.state.user, "recruiter")
+                }
+                path="/editProfile"
+                component={<ProfileContainer editProfile />}
+                redirectComponent={
+                  <WarningComponent message="Only Signed-In user / Jobseeker can edit profile. Please login to view this Page" />
+                }
+                message="Only Signed-In user / Jobseeker can edit profile. Please login to view this Page"
+              />
+              <PrivateRoute
+                condition={canAccess(this.state.user)}
+                path="/profile"
+                component={<ProfileContainer />}
+                redirectComponent={
+                  <WarningComponent message="Only Signed-In user / Jobseeker can view the profile. Please login as jobseeker to view this Page" />
+                }
+                message="Only Signed-In user / Jobseeker can view the profile. Please login as jobseeker to view this Page"
+              />
+              <PrivateRoute
+                condition={canAccess(this.state.user)}
+                path="/appliedJobs"
+                component={<ProfileContainer showAppliedJobsOnly />}
+                redirectComponent={
+                  <WarningComponent message="Only Signed-In user / Jobseeker can view the applied jobs. Please login as jobseeker to view this Page" />
+                }
+                message="Only Signed-In user / Jobseeker can view the applied jobs. Please login as jobseeker to view this Page"
+              />
               <Route
                 path="/job/applied/:jobId"
                 exact={true}
                 render={(props) => {
-                  return (
+                  return canAccess(this.state.user) ? (
                     <HomeContainer
                       applied
                       featuredJobId={props.match.params.jobId}
                       {...props}
                     />
-                  );
-                }}
-              />
-              <Route
-                path="/job/posted/:jobId"
-                exact={true}
-                render={(props) => {
-                  return (
-                    <HomeContainer
-                      posted
-                      featuredJobId={props.match.params.jobId}
-                      {...props}
-                    />
+                  ) : (
+                    <WarningComponent message="Only Signed-In user / Jobseeker can view applied jobs. Please login as jobseeker to view this Page" />
                   );
                 }}
               />
 
-              {/* Only Job Seeker can access these routes  */}
-              <PrivateRoute
-                condition={true}
-                path="/editProfile"
-                component={<ProfileContainer editProfile />}
-                redirectComponent={
-                  <WarningComponent message="Only signed in user can edit profile. Please login to view this Page" />
-                }
-                message="Only signed in user can edit profile. Please login to view this Page"
-              />
-              <PrivateRoute
-                condition={true}
-                path="/profile"
-                component={<ProfileContainer />}
-                redirectComponent={
-                  <WarningComponent message="Only signed in user can view the profile. Please login to view this Page" />
-                }
-                message="Only signed in user can view the profile. Please login to view this Page"
-              />
-              <PrivateRoute
-                condition={true}
-                path="/appliedJobs"
-                component={<ProfileContainer showAppliedJobsOnly />}
-                redirectComponent={
-                  <WarningComponent message="Only signed in user can view the profile. Please login to view this Page" />
-                }
-                message="Only signed in user can view the profile. Please login to view this Page"
-              />
               {/* Only Recruiter can access these routes */}
               <PrivateRoute
-                condition={true}
+                condition={canAccess(this.state.user, "recruiter")}
                 path="/postJob"
                 component={<RecruiterContainer postJob={true} />}
                 redirectComponent={
-                  <WarningComponent message="Only recruiter can post the jobs. Please login as recruiter to view this Page" />
+                  <WarningComponent message="Only Recruiter can post the jobs. Please login as recruiter to view this Page" />
                 }
-                message="Only recruiter can post the jobs. Please login as recruiter to view this Page"
+                message="Only Recruiter can post the jobs. Please login as recruiter to view this Page"
               />
               <PrivateRoute
-                condition={true}
+                condition={canAccess(this.state.user, "recruiter")}
                 path="/recruiter"
                 component={<RecruiterContainer />}
                 redirectComponent={
@@ -166,6 +162,19 @@ class App extends React.Component {
                 }
                 message="Only Recruiter can view this page. Please login as recruiter to view this Page"
               />
+              <Route
+                path="/job/posted/:jobId"
+                exact={true}
+                render={(props) => {
+                  return canAccess(this.state.user, "recruiter") ? (
+                    <RecruiterContainer
+                      postedJobId={props.match.params.jobId}
+                    />
+                  ) : (
+                    <WarningComponent message="Only Recruiter can view this page. Please login as recruiter to view this Page" />
+                  );
+                }}
+              ></Route>
 
               <Route component={NoMatchComponent} />
             </Switch>
