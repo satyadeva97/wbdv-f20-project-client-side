@@ -3,19 +3,43 @@ import HeaderComponent from "../components/core/HeaderComponent";
 import RecruiterHome from "../components/homepage/RecruiterHome";
 import JobsPostComponent from "../components/job/JobPostComponent";
 import { UserContext } from "../context";
-import { getPostedJobs } from "../services/JobService";
+import {
+  getApplicants,
+  getFeaturedJobDetails,
+  getPostedJobs,
+} from "../services/JobService";
 import "./RecruiterContainer.scss";
 
 class RecruiterContainer extends React.Component {
   componentDidMount() {
     if (!this.props.postJob) {
-      this.getJobs();
+      if (this.props.postedJobId) {
+        this.getFeaturedJobById(this.props.postedJobId);
+      } else {
+        this.getJobs();
+      }
     }
   }
 
   state = {
     postedJobs: [],
+    selectedJob: {},
   };
+
+  getFeaturedJobById = async (id) => {
+    const job = await getFeaturedJobDetails(id);
+    const applicants = await getApplicants(id);
+
+    this.setState({ selectedJob: { ...job, posted: true, applicants } });
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.postJob !== this.props.postJob) {
+      if (!this.props.postJob) {
+        this.getJobs();
+      }
+    }
+  }
 
   getJobs = async () => {
     const jobs = await getPostedJobs(this.context.user.id);
@@ -30,7 +54,12 @@ class RecruiterContainer extends React.Component {
         {this.props.postJob ? (
           <JobsPostComponent />
         ) : (
-          <RecruiterHome jobs={this.state.postedJobs} />
+          <RecruiterHome
+            jobs={this.state.postedJobs}
+            getAllJobs={this.getJobs}
+            postedJob={this.state.selectedJob}
+            postedJobId={this.props.postedJobId}
+          />
         )}
       </div>
     );
@@ -39,6 +68,7 @@ class RecruiterContainer extends React.Component {
 
 RecruiterContainer.defaultProps = {
   postJob: false,
+  postedJobId: "",
 };
 
 RecruiterContainer.contextType = UserContext;
