@@ -118,7 +118,7 @@ class SignUpComponent extends React.Component {
                   id="username"
                   placeholder="Homosapien"
                   type="text"
-                  pattern="^(\w|\d)+.*$"
+                  // pattern="^(\w|\d)+.*$"
                   minLength={3}
                   maxLength={25}
                 />
@@ -149,13 +149,9 @@ class SignUpComponent extends React.Component {
                   id="password"
                   placeholder="123QWe#$%"
                   type="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
+                  // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
                 />
-                <div className="invalid-feedback">
-                  Passwords should contain Minimum 8 and maximum 16 characters,
-                  at least one uppercase letter, one lowercase letter, one
-                  number and one special character
-                </div>
+                <div className="invalid-feedback">Enter a valid Password</div>
               </div>
             </div>
             <div className="form-group row">
@@ -282,9 +278,8 @@ class SignUpComponent extends React.Component {
                   id="agree"
                 />
                 <label className="form-check-label" htmlFor="agree">
-                  Agree to{" "}
                   <a href="/privacy" target="_blank">
-                    terms and conditions
+                    Agree to terms and conditions
                   </a>
                 </label>
                 <div className="invalid-feedback">

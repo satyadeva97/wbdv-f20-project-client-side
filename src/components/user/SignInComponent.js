@@ -94,7 +94,7 @@ class SignInComponent extends React.Component {
                   id="username"
                   placeholder="Homosapien"
                   type="text"
-                  pattern="^(\w|\d)+.*$"
+                  // pattern="^(\w|\d)+.*$"
                   minLength={3}
                   maxLength={25}
                 />
@@ -117,7 +117,7 @@ class SignInComponent extends React.Component {
                   id="password"
                   placeholder="123QWe#$%"
                   type="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
+                  // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
                 />
                 <div className="invalid-feedback">Enter a valid password</div>
               </div>
