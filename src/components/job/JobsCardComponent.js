@@ -34,6 +34,31 @@ class JobsCardComponent extends React.Component {
           <div className="company-location">
             <FontAwesomeIcon icon={faGlobeAmericas} /> {this.props.job.location}
           </div>
+          {this.props.job.posted && (
+            <>
+              <hr className="my-1 full-width" />
+              <div className="d-flex justify-content-between align-items-center">
+                <button
+                  onClick={() => {
+                    this.props.editJob(this.props.job);
+                  }}
+                  type="button"
+                  className="btn btn-primary"
+                >
+                  {" Edit "}
+                </button>
+                <button
+                  onClick={() => {
+                    this.props.deleteJob(this.props.job);
+                  }}
+                  type="button"
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </li>
     );
