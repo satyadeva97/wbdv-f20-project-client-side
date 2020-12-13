@@ -2,3 +2,8 @@
 a:hover {
   transform: translate(5%) scale(1.1);
 }
+.search-dropdown-item {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
