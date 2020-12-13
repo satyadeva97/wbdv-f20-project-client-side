@@ -23,3 +23,23 @@ export const loginUser = (body) => {
     })
   );
 };
+
+export const updateUser = (body) => {
+  return trackPromise(
+    fetch(`${apiUrl}profile/${body.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ ...body }),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      return response.json();
+    })
+  );
+};
+
+export const getUser = (username) => {
+  return trackPromise(
+    fetch(`${apiUrl}profile/${username}`).then((response) => {
+      return response.json();
+    })
+  );
+};
