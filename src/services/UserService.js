@@ -2,8 +2,14 @@ import { trackPromise } from "react-promise-tracker";
 import { apiUrl } from "./constants";
 
 export const registerUser = (body) => {
+  let url = apiUrl;
+  if (body.type === "jobseeker") {
+    url += "register/jobseeker";
+  } else {
+    url += "register/recruiter";
+  }
   return trackPromise(
-    fetch(`${apiUrl}register`, {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify({ ...body }),
       headers: { "Content-Type": "application/json" },
@@ -12,6 +18,7 @@ export const registerUser = (body) => {
     })
   );
 };
+
 export const loginUser = (body) => {
   return trackPromise(
     fetch(`${apiUrl}login`, {
@@ -25,8 +32,14 @@ export const loginUser = (body) => {
 };
 
 export const updateUser = (body) => {
+  let url = apiUrl;
+  if (body.type === "jobseeker") {
+    url += "jobseekers";
+  } else {
+    url += "recruiters";
+  }
   return trackPromise(
-    fetch(`${apiUrl}profile/${body.id}`, {
+    fetch(`${url}/${body.id}`, {
       method: "PUT",
       body: JSON.stringify({ ...body }),
       headers: { "Content-Type": "application/json" },
@@ -36,9 +49,16 @@ export const updateUser = (body) => {
   );
 };
 
-export const getUser = (username) => {
+export const getUser = (id, type) => {
+  let url = apiUrl;
+  if (type === "jobseeker") {
+    url += "jobseekers";
+  } else {
+    url += "recruiters";
+  }
+
   return trackPromise(
-    fetch(`${apiUrl}profile/${username}`)
+    fetch(`${url}/${id}`)
       .then((response) => {
         return response.json();
       })
@@ -51,14 +71,9 @@ export const getUser = (username) => {
 
 export const searchUser = (username) => {
   return trackPromise(
-    fetch(`${apiUrl}profile/${username}`)
+    fetch(`${apiUrl}users/${username}`)
       .then((response) => {
-        return [
-          { username: "qwetrty5", id: 1 },
-          { username: "qwetrt5", id: 11 },
-          { username: "qwetrty5", id: 111 },
-          { username: "qwetrt5", id: 11111 },
-        ];
+        return response.json();
       })
       .catch((e) => {
         console.log(e);
