@@ -11,8 +11,9 @@ class SignUpComponent extends React.Component {
     password: "",
     verifyPassword: "",
     type: "jobseeker",
-    company: "",
     aboutMe: "",
+    company: "",
+    company_url: "",
 
     agree: false,
 
@@ -43,14 +44,14 @@ class SignUpComponent extends React.Component {
       delete body.verifyPassword;
       delete body.agree;
       delete body.company;
-      delete body.companyUrl;
+      delete body.company_url;
 
       if (this.state.type === "recruiter") {
         body = {
           ...body,
           company: {
             name: this.state.company,
-            url: this.state.url,
+            url: this.state.company_url,
           },
         };
       }
@@ -235,20 +236,39 @@ class SignUpComponent extends React.Component {
             </div>
 
             {this.state.type === "recruiter" && (
-              <div className="form-group row">
-                <label className="col-sm-2 col-form-label" htmlFor="company">
-                  Company
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    required
-                    onChange={this.updateField}
-                    className="form-control wbdv-field"
-                    id="company"
-                    placeholder="JobMan Ltd"
-                  />
+              <>
+                <div className="form-group row">
+                  <label className="col-sm-2 col-form-label" htmlFor="company">
+                    Company
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      required
+                      onChange={this.updateField}
+                      className="form-control wbdv-field"
+                      id="company"
+                      placeholder="JobMan Ltd"
+                    />
+                  </div>
                 </div>
-              </div>
+                <div className="form-group row">
+                  <label
+                    className="col-sm-2 col-form-label"
+                    htmlFor="company_url"
+                  >
+                    Company Url
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      required
+                      onChange={this.updateField}
+                      className="form-control wbdv-field"
+                      id="company_url"
+                      placeholder="https://google.com"
+                    />
+                  </div>
+                </div>
+              </>
             )}
 
             <div className="form-group">
