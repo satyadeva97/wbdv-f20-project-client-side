@@ -1,18 +1,39 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { UserContext } from "../../context";
-import { removeUserData } from "../../helpers/helper";
+import { removeUserData, setUserData } from "../../helpers/helper";
+import { getUser, updateUser } from "../../services/UserService";
 
 class EditProfileComponent extends React.Component {
   state = {
-    type: "Job Seeker",
-    email: "email@email.com",
-    username: "Robot",
-    phone: "(123) 156-234",
-    dob: "1998-01-23",
+    type: "jobseeker",
+    email: "",
+    username: "",
+    phone: "",
+    dob: "",
+
+    company: "",
+    company_url: "",
 
     submitted: false,
+
+    apiUser: {},
   };
+
+  async componentDidMount() {
+    const user = await getUser(this.context.user.username);
+    this.setState({
+      type: user.type,
+      email: user.email,
+      username: user.username,
+      phone: user.phone || "",
+      dob: user.dob || "",
+
+      company: user.company ? user.company.name : "",
+      company_url: user.company ? user.company.url : "",
+      apiUser: user,
+    });
+  }
 
   updateField = (event) => {
     this.setState({
@@ -20,12 +41,41 @@ class EditProfileComponent extends React.Component {
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
       submitted: true,
     });
+    if (event.target.checkValidity()) {
+      let body = {
+        ...this.state.apiUser,
+        ...this.state,
+      };
+      delete body.apiUser;
+      delete body.submitted;
+      delete body.company;
+      delete body.company_url;
+
+      if (this.state.type === "recruiter") {
+        body = {
+          ...body,
+          company: {
+            ...this.state.apiUser.company,
+            name: this.state.company,
+            url: this.state.company_url,
+          },
+        };
+      }
+
+      const user = await updateUser(body);
+      if (user && user.id) {
+        setUserData(user, this.context.updateUser);
+        this.props.history.push(
+          user.type === "jobseeker" ? "/profile" : "/recruiter"
+        );
+      }
+    }
   };
 
   render() {
@@ -124,6 +174,42 @@ class EditProfileComponent extends React.Component {
               />
             </div>
           </div>
+          {this.state.type === "recruiter" && (
+            <>
+              <div className="form-group row">
+                <label className="col-sm-2 col-form-label" htmlFor="company">
+                  Company
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    required
+                    onChange={this.updateField}
+                    className="form-control wbdv-field"
+                    id="company"
+                    placeholder="JobMan Ltd"
+                  />
+                </div>
+              </div>
+              <div className="form-group row">
+                <label
+                  className="col-sm-2 col-form-label"
+                  htmlFor="company_url"
+                >
+                  Company Url
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    required
+                    onChange={this.updateField}
+                    className="form-control wbdv-field"
+                    id="company_url"
+                    placeholder="https://google.com"
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
           <div className="form-group row">
             <div className="col-sm-10 offset-sm-2">
               <button
