@@ -33,7 +33,7 @@ class JobsPostComponent extends React.Component {
         this.props.onEdit();
       } else {
         await postJob({
-          ...this.body,
+          ...body,
           recruiter: { id: this.context.user.id },
         });
       }
