@@ -97,12 +97,13 @@ class App extends React.Component {
                 }}
               />
               <Route
-                path="/viewProfile/:username"
+                path="/viewProfile/:userId"
                 exact={true}
                 render={(props) => {
                   return (
                     <ViewProfileComponent
-                      username={props.match.params.username}
+                      userId={props.match.params.userId}
+                      type={props.location.state.type}
                     />
                   );
                 }}

@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  AsyncTypeahead,
-  Highlighter,
-  MenuItem,
-} from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Highlighter } from "react-bootstrap-typeahead";
 import { useHistory } from "react-router-dom";
 import { searchUser } from "../../services/UserService";
 
@@ -36,10 +32,14 @@ const SearchUser = () => {
       options={options}
       placeholder="Search for user..."
       onChange={(selected) => {
-        history.push(`/viewProfile/${selected[0].username}`);
+        if (selected && selected[0] && selected[0].id) {
+          history.push(`/viewProfile/${selected[0].id}`, {
+            type: selected[0].type,
+          });
+        }
       }}
       renderMenuItemChildren={(option, props) => (
-        <MenuItem wrap="nowrap" className="search-dropdown-item">
+        <div className="search-dropdown-item">
           <img
             alt="pic"
             src={`https://picsum.photos/200/300?random=${option.id}`}
@@ -49,8 +49,10 @@ const SearchUser = () => {
               width: "24px",
             }}
           />
-          <Highlighter search={props.text}>{option.username}</Highlighter>
-        </MenuItem>
+          <Highlighter highlightClassName="highlight" search={props.text}>
+            {option.username}
+          </Highlighter>
+        </div>
       )}
     />
   );

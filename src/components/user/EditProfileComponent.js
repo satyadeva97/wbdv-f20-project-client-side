@@ -21,7 +21,7 @@ class EditProfileComponent extends React.Component {
   };
 
   async componentDidMount() {
-    const user = await getUser(this.context.user.username);
+    const user = await getUser(this.context.user.id, this.context.user.type);
     this.setState({
       type: user.type,
       email: user.email,
@@ -52,6 +52,7 @@ class EditProfileComponent extends React.Component {
         ...this.state.apiUser,
         ...this.state,
       };
+      delete body.phone;
       delete body.apiUser;
       delete body.submitted;
       delete body.company;
@@ -143,7 +144,7 @@ class EditProfileComponent extends React.Component {
               </div>
             </div>
           </div>
-          <div className="form-group row">
+          {/* <div className="form-group row">
             <label className="col-sm-2 col-form-label" htmlFor="phone">
               Phone
             </label>
@@ -158,7 +159,7 @@ class EditProfileComponent extends React.Component {
               />
               <div className="invalid-feedback">Enter a Valid phone number</div>
             </div>
-          </div>
+          </div> */}
 
           <div className="form-group row">
             <label className="col-sm-2 col-form-label" htmlFor="dob">

@@ -10,10 +10,19 @@ import {
 import { UserContext } from "../../context";
 
 class ViewProfileComponent extends React.Component {
-  async componentDidMount() {
-    if (this.props.username) {
-      const profile = await getUser(this.props.username);
+  async getUserData() {
+    if (this.props.userId) {
+      const profile = await getUser(this.props.userId, this.props.type);
       this.setState({ profile });
+    }
+  }
+  componentDidMount() {
+    this.getUserData();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.userId !== this.props.userId) {
+      this.getUserData();
     }
   }
 
@@ -43,12 +52,15 @@ class ViewProfileComponent extends React.Component {
                       {this.state.profile.phone}
                     </p>
                   )}
-                  <p className="card-text">
+                  <a
+                    className="card-text"
+                    href={`mailto:${this.state.profile.email}`}
+                  >
                     <span className="mr-1">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </span>
                     {this.state.profile.email}
-                  </p>
+                  </a>
                 </>
               ) : (
                 <h3>
@@ -84,7 +96,8 @@ class ViewProfileComponent extends React.Component {
 }
 
 ViewProfileComponent.defaultProps = {
-  username: "",
+  userId: "",
+  type: "jobseeker",
 };
 
 ViewProfileComponent.contextType = UserContext;
