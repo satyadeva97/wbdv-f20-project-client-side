@@ -38,10 +38,19 @@ class HomeContainer extends Component {
   };
 
   getJobs = async (search) => {
-    const jobs = await getAllJobs(search.keyword, search.location);
+    const jobs = await getAllJobs(search.keyword, search.location).catch(
+      (e) => {
+        console.log(e);
+        return [];
+      }
+    );
     const featuredJobs = await (search.keyword || search.location
       ? getFeaturedJobs(search.keyword, search.location)
-      : getAllFeaturedJobs());
+      : getAllFeaturedJobs()
+    ).catch((e) => {
+      console.log(e);
+      return [];
+    });
     this.setState({ jobs: jobs, featuredJobs: featuredJobs });
   };
 

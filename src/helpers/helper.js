@@ -26,9 +26,10 @@ export const formatJobFromAPI = (job, additionalFields) => {
   return {
     ...restJob,
     company: company ? company.name : "",
-    company_logo: company ? company.logo : "",
     company_url: company ? company.url : "",
     company_id: company ? company.companyId : "",
+    company_logo: `https://picsum.photos/200/300?random=${job.jobId}`,
+    _company_logo: company ? company.logo : "",
 
     id: job.extId || `ext_Id-${job.jobId}`,
     ...additionalFields,
@@ -42,13 +43,14 @@ export const formatJobToAPI = (job) => {
     company_logo,
     company_url,
     company_id,
+    _company_logo,
     ...restJob
   } = job;
   return {
     ...restJob,
     company: {
       name: company,
-      logo: company_logo,
+      logo: _company_logo || company_logo,
       url: company_url,
       companyId: company_id,
     },
