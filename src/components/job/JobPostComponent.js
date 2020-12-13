@@ -1,30 +1,61 @@
 import React from "react";
-import { postJob } from "../../services/JobService";
+import { withRouter } from "react-router-dom";
+import { UserContext } from "../../context";
+import { postJob, updateJob } from "../../services/JobService";
 import "./JobComponent.scss";
 
 class JobsPostComponent extends React.Component {
   state = {
-    title: "",
-    description: "",
-    location: "",
-    type: "",
+    title: this.props.job.title,
+    description: this.props.job.description,
+    location: this.props.job.location,
+    type: this.props.job.type,
+
+    submitted: false,
   };
 
   updateField = (event, key) => {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  postJob = () => {
-    postJob({ ...this.state });
+  postJob = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({
+      submitted: true,
+    });
+
+    if (event.target.checkValidity()) {
+      let body = { ...this.props.job, ...this.state };
+      delete body.submitted;
+      if (this.props.edit) {
+        await updateJob(body);
+        this.props.onEdit();
+      } else {
+        await postJob({
+          ...this.body,
+          recruiter: { id: this.context.user.id },
+        });
+      }
+      this.props.history.push("/recruiter");
+    }
   };
 
   render() {
     return (
       <div className="jumbotron">
-        <h1 className="display-4">Post a new Job</h1>
+        <h1 className="display-4">
+          {this.props.edit ? "Edit Job" : "Post a new Job"}
+        </h1>
         <hr className="my-4" />
 
-        <form onSubmit={this.postJob}>
+        <form
+          className={`needs-validation ${
+            this.state.submitted ? "was-validated" : ""
+          }`}
+          onSubmit={this.postJob}
+          noValidate
+        >
           <div className="form-group row">
             <label htmlFor="title" className="col-sm-2 col-form-label">
               Title
@@ -35,7 +66,10 @@ class JobsPostComponent extends React.Component {
                 id="title"
                 value={this.state.title}
                 onChange={this.updateField}
+                pattern="^(.*(\S)+.*)$"
+                required
               />
+              <div className="invalid-feedback">Enter a valid character</div>
             </div>
           </div>
 
@@ -50,7 +84,10 @@ class JobsPostComponent extends React.Component {
                 id="description"
                 value={this.state.description}
                 onChange={this.updateField}
+                pattern="^(.*(\S)+.*)$"
+                required
               />
+              <div className="invalid-feedback">Enter a valid character</div>
             </div>
           </div>
 
@@ -64,7 +101,10 @@ class JobsPostComponent extends React.Component {
                 id="location"
                 value={this.state.location}
                 onChange={this.updateField}
+                pattern="^(.*(\S)+.*)$"
+                required
               />
+              <div className="invalid-feedback">Enter a valid character</div>
             </div>
           </div>
 
@@ -78,7 +118,10 @@ class JobsPostComponent extends React.Component {
                 id="type"
                 value={this.state.type}
                 onChange={this.updateField}
+                pattern="^(.*(\S)+.*)$"
+                required
               />
+              <div className="invalid-feedback">Enter a valid character</div>
             </div>
           </div>
           <div className="row">
@@ -86,7 +129,7 @@ class JobsPostComponent extends React.Component {
               type="submit"
               className="btn btn-primary col-sm-1 offset-sm-9"
             >
-              Create Job
+              {this.props.edit ? "Update Job" : "Create Job"}
             </button>
           </div>
         </form>
@@ -94,4 +137,18 @@ class JobsPostComponent extends React.Component {
     );
   }
 }
-export default JobsPostComponent;
+
+JobsPostComponent.defaultProps = {
+  job: {
+    title: "",
+    description: "",
+    location: "",
+    type: "",
+  },
+  edit: false,
+  onEdit: () => {},
+};
+
+JobsPostComponent.contextType = UserContext;
+
+export default withRouter(JobsPostComponent);
