@@ -30,13 +30,29 @@ class ProfileContainer extends React.Component {
   };
 
   getJobs = async (search) => {
-    const jobs = await getAllJobs(search.keyword, search.location);
-    this.setState({ jobs: jobs });
-    const featuredJobs = await (search.keyword || search.location
-      ? getFeaturedJobs(search.keyword, search.location)
-      : getAllFeaturedJobs());
-    const appliedJobs = await getAppliedJobs(this.context.user.id);
-    this.setState({ jobs: jobs, featuredJobs: featuredJobs, appliedJobs });
+    await Promise.all([
+      getAllJobs(search.keyword, search.location).catch((e) => {
+        console.log(e);
+        return [];
+      }),
+      (search.keyword || search.location
+        ? getFeaturedJobs(search.keyword, search.location)
+        : getAllFeaturedJobs()
+      ).catch((e) => {
+        console.log(e);
+        return [];
+      }),
+      getAppliedJobs(this.context.user.id).catch((e) => {
+        console.log(e);
+        return [];
+      }),
+    ]).then((results) => {
+      this.setState({
+        jobs: results[0],
+        featuredJobs: results[1],
+        appliedJobs: results[2],
+      });
+    });
   };
 
   getAppliedJobsOnly = async () => {

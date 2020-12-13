@@ -44,7 +44,7 @@ export const getAllFeaturedJobs = () => {
 
 export const getFeaturedJobs = (keyword, location) => {
   return trackPromise(
-    fetch(`${apiUrl}jobs/keyword/${keyword}/location/${location}`).then(
+    fetch(`${apiUrl}jobs/keyword/${keyword}/location/${location}/`).then(
       (response) => {
         return response
           .json()
