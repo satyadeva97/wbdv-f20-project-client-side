@@ -38,8 +38,31 @@ export const updateUser = (body) => {
 
 export const getUser = (username) => {
   return trackPromise(
-    fetch(`${apiUrl}profile/${username}`).then((response) => {
-      return response.json();
-    })
+    fetch(`${apiUrl}profile/${username}`)
+      .then((response) => {
+        return response.json();
+      })
+      .catch((e) => {
+        console.log(e);
+        return null;
+      })
+  );
+};
+
+export const searchUser = (username) => {
+  return trackPromise(
+    fetch(`${apiUrl}profile/${username}`)
+      .then((response) => {
+        return [
+          { username: "qwetrty5", id: 1 },
+          { username: "qwetrt5", id: 11 },
+          { username: "qwetrty5", id: 111 },
+          { username: "qwetrt5", id: 11111 },
+        ];
+      })
+      .catch((e) => {
+        console.log(e);
+        return [];
+      })
   );
 };

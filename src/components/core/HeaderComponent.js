@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context";
+import SearchUser from "../user/SearchUser";
 import "./HeaderComponent.scss";
 
 class HeaderComponent extends React.Component {
@@ -93,6 +94,8 @@ class HeaderComponent extends React.Component {
             )}
           </div>
         </nav>
+
+        <SearchUser />
       </>
     );
   }

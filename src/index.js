@@ -22,6 +22,7 @@ const LoadingIndicator = (props) => {
           left: 0,
           top: 0,
           backgroundColor: "#030202e0",
+          zIndex: 9999,
         }}
       >
         <Loader type="ThreeDots" color="blue" height="100" width="100" />

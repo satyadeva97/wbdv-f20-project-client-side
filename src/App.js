@@ -13,6 +13,7 @@ import RecruiterContainer from "./containers/RecruiterContainer";
 import ProfileContainer from "./containers/ProfileContainer";
 import { UserContext } from "./context";
 import { getUserData } from "./helpers/helper";
+import ViewProfileComponent from "./components/user/ViewProfileComponent";
 
 const canAccess = (user, type = "jobseeker") => {
   return user && user.type && user.type === type;
@@ -91,6 +92,17 @@ class App extends React.Component {
                     <HomeContainer
                       featuredJobId={props.match.params.jobId}
                       {...props}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/viewProfile/:username"
+                exact={true}
+                render={(props) => {
+                  return (
+                    <ViewProfileComponent
+                      username={props.match.params.username}
                     />
                   );
                 }}

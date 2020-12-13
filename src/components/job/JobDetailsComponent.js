@@ -28,7 +28,7 @@ class JobDetailsComponent extends React.Component {
             {job.recruiter && (
               <p>
                 Posted By{" "}
-                <Link to={`/viewProfile/${job.recruiter.id}`}>
+                <Link to={`/viewProfile/${job.recruiter.username}`}>
                   {job.recruiter.username}
                 </Link>
               </p>
