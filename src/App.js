@@ -115,7 +115,7 @@ class App extends React.Component {
                   canAccess(this.state.user) ||
                   canAccess(this.state.user, "recruiter")
                 }
-                path="/editProfile"
+                path="/profile"
                 component={<ProfileContainer editProfile />}
                 redirectComponent={
                   <WarningComponent message="Only Signed-In user / Jobseeker can edit profile. Please login to view this Page" />

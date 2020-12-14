@@ -72,7 +72,7 @@ class HeaderComponent extends React.Component {
           <div className="nav justify-content-end">
             {this.context.user.id ? (
               <>
-                <Link to="/editProfile">
+                <Link to="/profile">
                   <button
                     className="btn btn-secondary"
                     type="button"
