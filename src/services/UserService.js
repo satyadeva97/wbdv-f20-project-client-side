@@ -26,7 +26,12 @@ export const loginUser = (body) => {
       body: JSON.stringify({ ...body }),
       headers: { "Content-Type": "application/json" },
     }).then((response) => {
-      return response.json();
+        if (response.status == 200) {
+            return response.json();
+        } else {
+            return {};
+        }
+
     })
   );
 };

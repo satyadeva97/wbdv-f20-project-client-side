@@ -8,7 +8,7 @@ class SignInComponent extends React.Component {
   state = {
     username: "",
     password: "",
-
+    showAlert: false,
     submitted: false,
   };
 
@@ -23,6 +23,7 @@ class SignInComponent extends React.Component {
     event.stopPropagation();
     this.setState({
       submitted: true,
+                    showAlert: false
     });
 
     if (event.target.checkValidity()) {
@@ -42,6 +43,8 @@ class SignInComponent extends React.Component {
             user.type === "jobseeker" ? "/profile" : "/recruiter"
           );
         }
+      } else {
+          this.setState({showAlert: true})
       }
     }
   };
@@ -53,7 +56,9 @@ class SignInComponent extends React.Component {
           this.props.history.location.state.message && (
             <h3>{this.props.history.location.state.message}</h3>
           )}
-        {this.context.user.id ? (
+        {this.state.showAlert && <div className="alert alert-danger" role="alert">
+          Enter correct credentials!
+        </div>} { this.context.user.id ? (
           <div>
             <h5>
               Hello {this.context.user.username}, you need to logout to Sign-In
