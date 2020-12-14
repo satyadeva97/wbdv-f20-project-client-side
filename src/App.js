@@ -97,7 +97,7 @@ class App extends React.Component {
                 }}
               />
               <Route
-                path="/viewProfile/:userId"
+                path="/profile/:userId"
                 exact={true}
                 render={(props) => {
                   return (

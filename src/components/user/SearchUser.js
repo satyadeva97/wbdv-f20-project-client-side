@@ -33,7 +33,7 @@ const SearchUser = () => {
       placeholder="Search for user..."
       onChange={(selected) => {
         if (selected && selected[0] && selected[0].id) {
-          history.push(`/viewProfile/${selected[0].id}`, {
+          history.push(`/profile/${selected[0].id}`, {
             type: selected[0].type,
           });
         }

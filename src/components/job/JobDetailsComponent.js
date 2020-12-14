@@ -31,7 +31,7 @@ class JobDetailsComponent extends React.Component {
                 Posted By{" "}
                 <Link
                   to={{
-                    pathname: `/viewProfile/${job.recruiter.id}`,
+                    pathname: `/profile/${job.recruiter.id}`,
                     state: { type: "recruiter" },
                   }}
                 >
@@ -129,7 +129,7 @@ class JobDetailsComponent extends React.Component {
                         <Link
                           className="mb-1"
                           to={{
-                            pathname: `/viewProfile/${a.id}`,
+                            pathname: `/profile/${a.id}`,
                             state: { type: "jobseeker" },
                           }}
                         >
