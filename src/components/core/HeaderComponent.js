@@ -84,7 +84,7 @@ class HeaderComponent extends React.Component {
               </>
             ) : (
               <>
-                <a className="bg-secondary text-white" href="/signIn">
+                <a className="bg-secondary text-white" href="/login">
                   <button className="btn btn-secondary ">Sign-In</button>
                 </a>
                 <a className="bg-primary text-white ml-2" href="/signUp">

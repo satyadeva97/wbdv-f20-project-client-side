@@ -4,7 +4,7 @@ class PrivacyPolicyComponent extends React.Component {
   render() {
     return (
       <div className="container">
-        <a href="/signIn"></a>
+        <a href="/login"></a>
         <div>
           <h1 style={{ "text-align": "center" }}>Privacy Policy</h1>
         </div>

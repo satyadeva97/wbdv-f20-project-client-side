@@ -73,7 +73,7 @@ class JobDetailsComponent extends React.Component {
                         this.setState({ applied: true });
                       }
                     } else {
-                      this.props.history.push("/signIn", {
+                      this.props.history.push("/login", {
                         message: "Please Login to apply ",
                         from: this.props.history.location.pathname,
                       });

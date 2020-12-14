@@ -9,7 +9,7 @@ class WarningComponent extends React.Component {
           <b>{this.props.message}</b>
         </h1>
         <p className="lead">
-          Click here to <Link to="/signIn">LOGIN</Link>
+          Click here to <Link to="/login">LOGIN</Link>
         </p>
       </div>
     );

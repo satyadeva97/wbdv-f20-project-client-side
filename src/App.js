@@ -50,7 +50,7 @@ class App extends React.Component {
               {/* Every One can access these */}
               <Route path="/" exact={true} component={HomeContainer} />
               <Route path="/home" exact={true} component={HomeContainer} />
-              <Route path="/signIn" exact={true} component={SignInComponent} />
+              <Route path="/login" exact={true} component={SignInComponent} />
               <Route path="/signUp" exact={true} component={SignUpComponent} />
               <Route
                 path="/privacy"

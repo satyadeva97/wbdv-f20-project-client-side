@@ -299,7 +299,7 @@ class SignUpComponent extends React.Component {
                   <div className="col">
                     <a
                       className="wbdv-link wbdv-link wbdv-login"
-                      href="/signIn"
+                      href="/login"
                     >
                       Login
                     </a>

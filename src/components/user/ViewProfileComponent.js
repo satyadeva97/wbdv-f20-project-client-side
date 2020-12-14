@@ -64,7 +64,7 @@ class ViewProfileComponent extends React.Component {
                 </>
               ) : (
                 <h3>
-                  You need to <a href="/signIn">login</a> to view contact
+                  You need to <a href="/login">login</a> to view contact
                   details
                 </h3>
               )}
