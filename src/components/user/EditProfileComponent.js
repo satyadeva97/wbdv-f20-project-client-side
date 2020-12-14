@@ -73,7 +73,7 @@ class EditProfileComponent extends React.Component {
       if (user && user.id) {
         setUserData(user, this.context.updateUser);
         this.props.history.push(
-          user.type === "jobseeker" ? "/profile" : "/recruiter"
+          user.type === "jobseeker" ? "/jobseeker" : "/recruiter"
         );
       }
     }

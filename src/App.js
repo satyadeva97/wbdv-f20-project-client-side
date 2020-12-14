@@ -124,7 +124,7 @@ class App extends React.Component {
               />
               <PrivateRoute
                 condition={canAccess(this.state.user)}
-                path="/profile"
+                path="/jobseeker"
                 component={<ProfileContainer />}
                 redirectComponent={
                   <WarningComponent message="Only Signed-In user / Jobseeker can view the profile. Please login as jobseeker to view this Page" />

@@ -40,7 +40,7 @@ class SignInComponent extends React.Component {
           this.props.history.push(this.props.history.location.state.from);
         } else {
           this.props.history.push(
-            user.type === "jobseeker" ? "/profile" : "/recruiter"
+            user.type === "jobseeker" ? "/jobseeker" : "/recruiter"
           );
         }
       } else {

@@ -59,11 +59,11 @@ class HeaderComponent extends React.Component {
                     className="nav-link"
                     href={
                       this.context.user.type === "jobseeker"
-                        ? "/profile"
+                        ? "/jobseeker"
                         : "/recruiter"
                     }
                   >
-                    Profile
+                    Dashboard
                   </a>
                 </li>
               )}

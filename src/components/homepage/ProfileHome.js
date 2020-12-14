@@ -9,9 +9,14 @@ class ProfileHome extends React.Component {
       <div>
         <div>
           <h5>
-            Applied Jobs ({this.props.appliedJobs.length}): Click here to view
-            all <Link to="/appliedJobs">applied jobs</Link>
+            Applied Jobs
           </h5>
+            <p>
+              <h6>Number of jobs: {this.props.appliedJobs.length}</h6> Click
+                <Link to="/appliedJobs"> here </Link>
+                to view
+            all applied jobs
+            </p>
           {this.props.appliedJobs.length && (
             <ul className="border-li">
               <JobCarouselComponent

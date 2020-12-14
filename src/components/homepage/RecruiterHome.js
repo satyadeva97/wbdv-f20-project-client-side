@@ -44,7 +44,8 @@ class RecruiterHome extends React.Component {
     ) : (
       <div>
         <h3 className="d-flex justify-content-between mt-1">
-          <span>Posted Jobs ({this.props.jobs.length}):</span>
+          <span>Posted Jobs </span>
+          <span>Number of jobs: {this.props.jobs.length} </span>
           <span>
             <Link to="postJob">
               <button className="btn btn-warning">Create Job</button>

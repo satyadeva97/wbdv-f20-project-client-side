@@ -112,7 +112,7 @@ class JobDetailsComponent extends React.Component {
           <h5>
             {this.state.showDescription
               ? "Description"
-              : `Applicants (${job.applicants.length})`}
+              : `Number of Applicants: ${job.applicants.length}`}
           </h5>
           {this.state.showDescription ? (
             <p dangerouslySetInnerHTML={{ __html: job.description }}></p>
