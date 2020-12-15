@@ -49,6 +49,7 @@ class App extends React.Component {
             <Switch>
               {/* Every One can access these */}
               <Route path="/" exact={true} component={HomeContainer} />
+              <Route path="/search" exact={true} component={HomeContainer} />
               <Route path="/home" exact={true} component={HomeContainer} />
               <Route path="/login" exact={true} component={SignInComponent} />
               <Route path="/signUp" exact={true} component={SignUpComponent} />
